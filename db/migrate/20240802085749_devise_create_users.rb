@@ -35,7 +35,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :username
       t.text :bio
-      t.string :link
 
       t.timestamps null: false
     end
