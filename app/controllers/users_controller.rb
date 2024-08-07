@@ -1,24 +1,26 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
    @user = User.where(params[:id]).pluck(:name, :username, :bio)
   end
 
   def show
-    @user = User.find(1)
+    @user = current_user.all
   end
 
-  # def new
-  #   @user = User.new
-  # end
+  def new
+    @user = current_user.new
+  end
 
-  # def create
-  #   @user = User.new(params[:user])
-  #   if @user.save == 'active'
-  #     redirect_to @user
-  #   else
-  #     render "new"
-  #   end
-  # end
+  def create
+    @user = User.new(params[:user])
+    if @user.save == 'active'
+      redirect_to @user
+    else
+      render "new"
+    end
+  end
 
   # def edit
   #   @user = User.find(params[:id])
@@ -40,5 +42,6 @@ class UserController < ApplicationController
 
   #   redirect_to root_path,status: :"Your id is not destory"
   # end
+
 
 end

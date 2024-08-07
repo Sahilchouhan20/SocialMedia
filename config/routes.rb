@@ -3,5 +3,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :user
+  resources :users
+
+  resources :comments
+
+  resources :posts
 end
