@@ -1,0 +1,13 @@
+<%= form_with model: @post do |form| %>
+  <div class="field">
+    <%= form.label :text%>
+    <% form.file_field :text%>
+
+    <%=form.label :image, style: "display: block" %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="action">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<p>
+  <strong>Text</strong>
+</p>
+<p>
+  <% if @post.images.attached? %>
+    <% attachment = @post.images.first.attachments.first %>
+    <%= link_to main_app.rails_blob_url(attachment), target: "_blank" do %>
+      <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail' %>
+    <% end %>
+  <% else %>
+   <%= No images attached %>
+  <% end %>
+</p>
