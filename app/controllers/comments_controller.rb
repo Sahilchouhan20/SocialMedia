@@ -1,21 +1,17 @@
 class CommentsController < ApplicationController
-  def index
-    @post = Post.find(1)
-    @comment = @post.comments
-  end
+  before_action :instance_used
+  before_action :authenticate_user!
 
   def show
-    @post = Post.find(1)
     @comment = @post.comments
   end
 
   def new
-    @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.build
   end
 
   def create
-    @post = Post.find_by(id:1)
-    @comment = @post.comments.create(comment_params)
+    @comment = @post.comments.new(comment_params)
     if @comment.save
       redirect_to @post
     else
@@ -23,29 +19,33 @@ class CommentsController < ApplicationController
     end
   end
 
-  # def edit
-  #   @comment = Comment.find(comment_param)
-  # end
+  def edit
+    @comment = Comment.find(params[:id])
+  end
 
-  # def update
-  #   @comment = Comment.find(comment_param)
+  def update
+    @comment = Comment.find(params[:id])
 
-  #   if @comment.update(comment_params)
-  #     redirect_to 'show'
-  #   else
-  #     redirect_to 'edit',status: :"comment can't be update"
-  #   end
-  # end
+    if @comment.update(comment_params)
+      redirect_to "/posts/#{@post.id}"
+    else
+      redirect_to 'edit',status: :"comment can't be update"
+    end
+  end
 
-  # def destroy
-  #   @comment = Comment.find(comment_param)
-  #   @comment.destroy
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
 
-  #   redirect_to "index",status: :"try again"
-  # end
+    redirect_to "/posts/#{@post.id}"
+  end
 
   private
   def comment_params
     params.require(:comment).permit(:discription)
+  end
+
+  def instance_used
+    @post = current_user.posts.find_by(id: params[:post_id])
   end
 end
