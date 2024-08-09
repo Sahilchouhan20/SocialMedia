@@ -20,11 +20,10 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find_by(id: params[:id])
   end
 
   def update
-    @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
       redirect_to "/posts/#{@post.id}"
@@ -34,7 +33,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
 
     redirect_to "/posts/#{@post.id}"
@@ -47,5 +45,6 @@ class CommentsController < ApplicationController
 
   def instance_used
     @post = current_user.posts.find_by(id: params[:post_id])
+    @comment = Comment.find_by(id: params[:id])
   end
 end
