@@ -23,8 +23,30 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to @post
+    else
+      render :edit, status: :"profile can't be edit"
+    end
+  end
+
+  def destroy
+    @post.destroy
+
+    redirect_to root_path,status: :"Your id is not destory"
+  end
+
   private
   def post_params
     params.require(:post).permit(:text,:images)
+  end
+
+  def instance
+    @post = Post.find_by(id: params[:id])
   end
 end
