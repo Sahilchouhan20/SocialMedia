@@ -1,7 +1,8 @@
 class HomesController < ApplicationController
-  def index
-    render
-  end
+  before_action :authenticate_user!
 
+  def show
+    @post = current_user.posts.all.with_attached_images
+  end
 
 end

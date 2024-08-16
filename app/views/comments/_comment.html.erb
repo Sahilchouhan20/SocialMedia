@@ -1,0 +1,6 @@
+  <%= comment.discription%><br>
+  <%= link_to "edit", edit_post_comment_path(comment.post, comment)%>
+  <%=link_to "delete", [comment.post, comment], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %> <br>
