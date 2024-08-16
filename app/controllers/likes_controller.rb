@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :instance_used,only:[:create]
+  before_action :instance_post,only:[:create]
 
   def create
     @likes = @post.likes.new(like_params)
@@ -17,12 +17,10 @@ class LikesController < ApplicationController
   private
 
   def like_params
-    debugger
     params.require(:like).permit(:likeable_id,:likeable_type)
   end
 
-  def instance_used
+  def instance_post
     @post = Post.find_by(id: params[:like][:likeable_id])
-    @comment = Comment.find_by(id: params[:id])
   end
 end

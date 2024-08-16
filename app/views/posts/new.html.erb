@@ -1,7 +1,7 @@
 <%= form_with model: @post do |form| %>
   <div class="field">
     <%= form.label :text%>
-    <% form.file_field :text%>
+    <% form.file_area :text%>
 
     <%=form.label :image, style: "display: block" %>
     <%= form.file_field :image %>
