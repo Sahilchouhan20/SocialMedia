@@ -1,6 +1,15 @@
 <% if user_signed_in? %> 
  <div> Welcome <%= current_user.email %> </div> 
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+
+  <% current_user.pending_requests.each do |request| %>
+    <%= request.followable.email %> wants to follow you
+    <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
+    <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
+  <%end%>
+  <hr />
+  
+
 <% else %>
   <%= button_to "Sign in", new_user_session_path %> 
 <% end %>

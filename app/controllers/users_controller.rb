@@ -2,11 +2,15 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-   @user = User.where(params[:id]).pluck(:name, :username, :bio)
+   if params[:search].present?
+    @users = User.where('username LIKE :search OR name LIKE :search', search: "%#{params[:search]}%")
+   else
+    @users = User.all
+   end
   end
 
   def show
-    @user = current_user
+    @user = User.find_by(id:params[:id])
   end
 
   def new
