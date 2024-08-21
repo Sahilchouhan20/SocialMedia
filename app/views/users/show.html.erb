@@ -1,13 +1,336 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap w/ Parcel</title>
-    <link rel="stylesheet" href="scss/styles.scss">
-    <script type="module" src="js/main.js"></script>
-  </head>
-  <body>
-    
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <style>
+      /* Import Font Dancing Script */
+      @import url(https://fonts.googleapis.com/css?family=Dancing+Script);
+      
+
+      * {
+          margin: 0;
+      }
+
+      body {
+          background-color: #e8f5ff;
+          font-family: italic;
+
+      }
+
+      /* NavbarTop */
+      .navbar-top {
+          background-color: #fff;
+          color: #333;
+          box-shadow: 0px 4px 8px 0px grey;
+          height: 70px;
+          position: sticky;
+      }
+      
+      .title {
+          font-family: 'Dancing Script', cursive;
+          padding-top: 15px;
+          position: absolute;
+          left: 45%;
+      }
+
+      .navbar-top ul {
+          float: right;
+          list-style-type: none;
+          margin: 0;
+          overflow: hidden;
+          padding: 18px 50px 0 40px;
+      }
+
+      .navbar-top ul li {
+          float: left;
+      }
+
+      .navbar-top ul li a {
+          color: #333;
+          padding: 14px 16px;
+          text-align: center;
+          text-decoration: none;
+      }
+
+      .icon-count {
+          background-color: #ff0000;
+          color: #fff;
+          float: right;
+          font-size: 11px;
+          left: -25px;
+          padding: 2px;
+          position: relative;
+      }
+
+      /* End */
+
+      /* Sidenav */
+      .sidenav {
+          background-color: #fff;
+          color: #333;
+          border-bottom-right-radius: 25px;
+          height: 86%;
+          left: 0;
+          overflow-x: hidden;
+          padding-top: 20px;
+          position: fixed;
+          top: 70px;
+          width: 250px;
+      }
+
+      .profile {
+          margin-bottom: 20px;
+          margin-top: -12px;
+      }
+
+      .profile img {
+          border-radius: 50%;
+          box-shadow: 0px 0px 5px 1px grey;
+      }
+
+      .name {
+          font-size: 20px;
+          font-weight: bold;
+          padding-top: 20px;
+      }
+
+      .job {
+          font-size: 16px;
+          font-weight: bold;
+          padding-top: 10px;
+      }
+
+      .url, hr {
+          text-align: center;
+      }
+
+      .url hr {
+          margin-left: 20%;
+          width: 60%;
+      }
+
+      .url a {
+          color: #818181;
+          display: block;
+          font-size: 20px;
+          margin: 10px 0;
+          padding: 6px 8px;
+          text-decoration: none;
+      }
+
+      .url a:hover, .url .active {
+          background-color: #e8f5ff;
+          border-radius: 28px;
+          color: #000;
+          margin-left: 14%;
+          width: 65%;
+      }
+
+      /* End */
+
+      /* Main */
+      .main {
+          margin-top: 2%;
+          margin-left: 29%;
+          font-size: 28px;
+          padding: 0 10px;
+          width: 58%;
+      }
+
+      .main h2 {
+          color: #333;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 0.9em;
+          margin-bottom: 10px;
+      }
+
+      .main .card {
+          background-color: #fff;
+          border-radius: 18px;
+          box-shadow: 1px 1px 8px 0 grey;
+          height: auto;
+          margin-bottom: 20px;
+          padding: 20px 0 20px 50px;
+      }
+
+      .main .card table {
+          border: none;
+          font-size: 16px;
+          height: 270px;
+          width: 80%;
+      }
+      
+      .edit {
+          position: absolute;
+          color: #e7e7e8;
+          right: 14%;
+      }
+      
+      .social-media {
+          text-align: center;
+          width: 90%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap:wrap;
+      }
+      
+      
+      .underbelow{
+        width:200px;
+
+      }
+
+      .below{
+        margin: 0px;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        font-size:0.9em;
+      }
+      .img-thumbnail{
+        height: 255px;
+        width: 180px;
+      }
+      
+      .profilewritten{
+        display: flex;
+        margin-top: 5%;
+      }
+       
+      .social-media  div{
+          margin: 0 10px;
+
+      }
+
+      .undermain{
+        margin-left: 120px;
+        width: 0px;
+        display: flex;
+      }
+
+      .designmain{
+        text-align: center;
+        margin-left: 40px;
+        font-size:90%;
+      }
+      
+
+      .fa-facebook:hover {
+          color: #4267b3 !important;
+      }
+
+      .fa-twitter:hover {
+          color: #1da1f2 !important;
+      }
+
+      .fa-instagram:hover {
+          color: #ce2b94 !important;
+      }
+
+      .fa-invision:hover {
+          color: #f83263 !important;
+      }
+
+      .fa-github:hover {
+          color: #161414 !important;
+      }
+
+      .fa-whatsapp:hover {
+          color: #25d366 !important;
+      }
+
+      .fa-snapchat:hover {
+          color: #fffb01 !important;
+      }
+      
+/* End */
+    </style>
+</head>
+<body>
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Fanatic</h1>
+        </div>
+
+    </div>
+    <!-- End -->
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+        
+            <div class="url">
+                <a href="#settings">Settings</a>
+                <hr align="center">
+            </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+        <div class="card">
+            <div class="card-body">
+              <div class="profilewritten">
+                <div class="profile">
+                    <img src="data:image/jpeg;base64,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" alt="" width="100" height="100">
+                     <div class="name">
+                    <%=@user.name %>
+                    </div>
+                    <div class="job">
+                    <%= @user.bio %>
+                    </div>
+                </div>
+
+                <i class="fa fa-pen fa-xs edit"></i>
+                <div class="undermain">
+                 <div class="designmain">
+                  <%= @user.posts.count%>
+                  <br> <hr>
+                  <span>posts</span>
+                 </div>
+                 <div class="designmain">
+                  <span>100</span>
+                  <br><hr>
+                  <span>followers</span>
+                 </div>
+                 <div class="designmain">
+                  <span>50</span>
+                  <br><hr>
+                  <span>following</span>
+                 </div>
+                </div>
+                
+                </div>
+                
+            </div>
+        </div> 
+           
+        <div class="below">
+         <div class="underbelow"> Posts </div>
+         <div class="underbelow"> Reels </div>
+         <div class="underbelow"> Mention </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <div class="social-media">
+                  <% @user.posts.each do |post|%>
+                    <div class="pics">
+                      <% if post.images.attached? %>
+                        <% attachment = post.images.first.attachments.first %>
+                        <%=link_to post_path(post) do %>
+                          <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <%end%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+</body>
 </html>
