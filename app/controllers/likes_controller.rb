@@ -11,7 +11,7 @@ class LikesController < ApplicationController
   def destroy
     @like = Like.find_by(id: params[:id])
     @like.destroy
-    redirect_to home_path
+    redirect_to home_path(@post.id)
   end
 
   private

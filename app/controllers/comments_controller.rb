@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :instance_used
-  before_action :authenticate_user!
+  before_action :instance_post
+  before_action :instance_comment
 
   def show
-    @comment = @post.comments
+    @comments = @post.comments
   end
 
   def new
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
   def update
 
     if @comment.update(comment_params)
-      redirect_to "/posts/#{@post.id}"
+      redirect_to post_path(@post)
     else
       redirect_to 'edit',status: :"comment can't be update"
     end
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to "/posts/#{@post.id}"
+    redirect_to post_path(@post)
   end
 
   private
@@ -42,8 +42,11 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:discription)
   end
 
-  def instance_used
+  def instance_post
     @post = current_user.posts.find_by(id: params[:post_id])
+  end
+
+  def instance_comment
     @comment = Comment.find_by(id: params[:id])
   end
 end
