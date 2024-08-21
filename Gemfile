@@ -70,3 +70,5 @@ gem "devise"
 
 gem "local"
 # gem "google-cloud-storage", "~> 1.11", require: false
+
+gem 'followability', github: 'nejdetkadir/followability', branch: 'main'

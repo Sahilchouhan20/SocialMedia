@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-   @user = User.where(params[:id]).pluck(:name, :username, :bio)
+
   end
 
   def show
-    @user = current_user
+    @user = User.find_by(id:params[:id])
   end
 
   def new
