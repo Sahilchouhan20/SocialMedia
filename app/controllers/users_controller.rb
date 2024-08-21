@@ -2,11 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-   if params[:search].present?
-    @users = User.where('username LIKE :search OR name LIKE :search', search: "%#{params[:search]}%")
-   else
-    @users = User.all
-   end
+
   end
 
   def show
