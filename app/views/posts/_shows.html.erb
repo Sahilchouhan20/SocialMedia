@@ -3,12 +3,21 @@
     <%= link_to main_app.rails_blob_url(attachment), target: "_blank" do %>
       <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail', width:"500px", height:"600px"%>
     <% end %>
+    <br>
+    <%=post.text%>
   <% else %>
    <p>No images attached</p>
   <% end %>
 
+ <%= link_to "edit", edit_post_path(post)%>
+  <%=link_to "delete",post_path(post) , data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %> <br>
+
 <% post.comments.each do |comment|%>
   <%= render partial: "comments/comment", locals: {comment:comment}%>
+  <%= render partial:"likes/button", locals: {likeable: comment} %>
 <%end%>
 
 
