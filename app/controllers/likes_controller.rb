@@ -1,17 +1,17 @@
 class LikesController < ApplicationController
-  before_action :find_likeable
+  before_action :instance_post,only:[:create]
 
   def create
-    @likes = @likeable.likes.new(like_params)
-    @likes.user_id = current_user.id
-    @likes.save
-    redirect_to home_path(@likeable.id)
+    @like = @post.likes.new(like_params)
+    @like.user_id = current_user.id
+    @like.save
+    redirect_to home_path(@post.id)
   end
 
   def destroy
     @like = Like.find_by(id: params[:id])
     @like.destroy
-    redirect_to home_path(@likeable.id)
+    redirect_to home_path
   end
 
   private
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
     params.require(:like).permit(:likeable_id,:likeable_type)
   end
 
-  def find_likeable
-    @likeable = params[:like][:likeable_type].constantize.find(params[:like][:likeable_id])
+  def instance_post
+    @post = Post.find_by(id: params[:like][:likeable_id])
   end
 end

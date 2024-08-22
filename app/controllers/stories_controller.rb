@@ -22,18 +22,6 @@ class StoriesController < ApplicationController
     end
   end
 
-  def edit
-    @story
-  end
-
-  def update
-    if @story.update(story_params)
-      redirect_to @story
-    else
-      render :edit, status: :"profile can't be edit"
-    end
-  end
-
   def destroy
     @story.destroy
 
