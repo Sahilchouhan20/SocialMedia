@@ -1,4 +1,5 @@
 class Story < ApplicationRecord
-  belongs_to :post
+  has_many_attached :stories
   has_many :likes, as: :likeable
+  belongs_to :user
 end
