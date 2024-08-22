@@ -1,0 +1,5 @@
+    <%= link_to main_app.rails_blob_url(@story.stories.first.attachments.first), target: "_blank" do %>
+      <%= video_tag main_app.rails_blob_url(@story.stories.first.attachments.first), controls: true, class: 'videoclass', width:"500px", height:"600px"%>
+    <% end %>
+    <%= render partial:"likes/button", locals: {likeable: @story} %>
+    <%= link_to "Delete_story", story_path(@story), data:{turbo_method: :delete}%>
