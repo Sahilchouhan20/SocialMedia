@@ -321,8 +321,8 @@
                     <div class="pics">
                       <% if post.images.attached? %>
                         <% attachment = post.images.first.attachments.first %>
-                        <%=link_to post_path(post) do %>
-                          <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
+                        <%=link_to posts_path(post) do %>
+                        <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
                         <% end %>
                       <% end %>
                     </div>
