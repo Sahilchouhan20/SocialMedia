@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram-like Post UI</title>
+    <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Basic reset */
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+}
+
+/* Feed container */
+.feed {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Single post container */
+.post {
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Post header */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.post-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.location {
+    font-size: 12px;
+    color: #8e8e8e;
+}
+
+.icon.more-options {
+    cursor: pointer;
+}
+
+/* Post image */
+.post-image img {
+    width: 100%;
+    display: block;
+}
+
+/* Post actions */
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.left-actions .icon {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.save-icon {
+    cursor: pointer;
+}
+
+/* Post details */
+.post-details {
+    padding: 0 10px 10px;
+}
+
+.post-likes,
+.post-caption,
+.post-comments,
+.post-time {
+    margin-bottom: 5px;
+}
+
+.post-likes {
+    font-weight: bold;
+}
+
+.post-caption {
+    font-size: 14px;
+}
+
+.post-caption strong {
+    margin-right: 5px;
+}
+
+.post-comments a {
+    color: #8e8e8e;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.post-time {
+    font-size: 10px;
+    color: #8e8e8e;
+}
+
+/* Add comment section */
+.add-comment {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #dbdbdb;
+}
+
+.add-comment input {
+    border: none;
+    flex-grow: 1;
+    padding: 10px;
+    outline: none;
+}
+
+.add-comment button {
+    border: none;
+    background-color: transparent;
+    color: #0095f6;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* Basic reset */
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+}
+
+/* Feed container */
+.feed {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Single post container */
+.post {
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Post header */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.post-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.location {
+    font-size: 12px;
+    color: #8e8e8e;
+}
+
+.icon.more-options {
+    cursor: pointer;
+}
+
+/* Post image */
+.post-image img {
+    width: 100%;
+    display: block;
+}
+
+/* Post actions */
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.left-actions .icon {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.save-icon {
+    cursor: pointer;
+}
+
+/* Post details */
+.post-details {
+    padding: 0 10px 10px;
+}
+
+.post-likes,
+.post-caption,
+.post-comments,
+.post-time {
+    margin-bottom: 5px;
+}
+
+.post-likes {
+    font-weight: bold;
+}
+
+.post-caption {
+    font-size: 14px;
+}
+
+.post-caption strong {
+    margin-right: 5px;
+}
+
+.post-comments a {
+    color: #8e8e8e;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.post-time {
+    font-size: 10px;
+    color: #8e8e8e;
+}
+
+.img-thumbnail{
+    height: 600px;
+    width: 500px;
+}
+
+/* Add comment section */
+.add-comment {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #dbdbdb;
+}
+
+.add-comment input {
+    border: none;
+    flex-grow: 1;
+    padding: 10px;
+    outline: none;
+}
+
+.add-comment button {
+    border: none;
+    background-color: transparent;
+    color: #0095f6;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+  </style>
+
+</head>
+<body>
+
+    <!-- Post Feed -->
+    <section class="feed">
+        <!-- Single Post -->
+        <article class="post">
+            <!-- Post Header -->
+            <div class="post-header">
+                <div class="post-user-info">
+                    <img src="https://via.placeholder.com/50" alt="Profile" class="post-profile-pic">
+                    <div>
+                        <span class="username"><%= post.user.username %></span>
+                    </div>
+                </div>
+                <div class="dropdown">
+                <i class="icon more-options" data-bs-toggle="dropdown">⋮</i>
+                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#">Edit</a></li>
+        <li><a class="dropdown-item" href="#">Delete</a></li>
+    </ul>
+</div>
+      
+                
+            </div>
+
+            <!-- Post Image -->
+            <div class="post-image">
+                <% if post.images.attached? %>
+    <% attachment = post.images.first.attachments.first %>
+    <%= link_to main_app.rails_blob_url(attachment), target: "_blank" do %>
+      <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
+    <% end %>
+    <%end%>
+            </div>
+
+            <!-- Post Actions -->
+            <div class="post-actions">
+                <div class="left-actions">
+                    <%= render partial:"likes/button", locals: {likeable: post} %>
+                    <a href="comments#comment"><i class="icon">💬</i></a>
+                </div>
+            </div>
+
+            <!-- Post Details -->
+            <div class="post-details">
+                <div class="post-likes">Liked by <strong><%= User.find(post.likes.last.user_id).username%></strong> and <strong><a href="#">others</a></strong></div>
+                <div class="post-caption"><strong><%=post.user.username%></strong> <%=post.text%></div>
+                <div class="post-comments"><a href="comments#comment">View all comments</a></div>
+                <div class="post-time"><%24* 2600*(Time.now-(post.created_at))%></div>
+            </div>
+            
+            <!-- Add Comment -->
+            <div class="add-comment">
+            <input type="text" placeholder="Add a comment...">
+            <%button_to "Post", new_post_comment_path(post)%>
+            </div>
+        </article>
+
+        <!-- Repeat the article structure for more posts -->
+    </section>
+
+</body>
+</html>

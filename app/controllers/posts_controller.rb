@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @post = Post.all.with_attached_images
+    @posts = Post.all.with_attached_images
   end
 
   def show
