@@ -2,9 +2,9 @@ class LikesController < ApplicationController
   before_action :instance_post,only:[:create]
 
   def create
-    @likes = @post.likes.new(like_params)
-    @likes.user_id = current_user.id
-    @likes.save
+    @like = @post.likes.new(like_params)
+    @like.user_id = current_user.id
+    @like.save
     redirect_to home_path(@post.id)
   end
 

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :instance
 
   def index
     @posts = Post.all.with_attached_images
@@ -38,7 +39,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
 
-    redirect_to root_path,status: :"Your id is not destory"
+    redirect_to homes_path,status: :"Your id is not destory"
   end
 
   private
