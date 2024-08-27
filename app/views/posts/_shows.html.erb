@@ -344,7 +344,7 @@ body {
 
             <!-- Post Details -->
             <div class="post-details">
-                <div class="post-likes">Liked by <strong><%= User.find(post.likes.last.user_id).username%></strong> and <strong><a href="#">others</a></strong></div>
+                <div class="post-likes">Liked by <strong></strong> and <strong><a href="#">others</a></strong></div>
                 <div class="post-caption"><strong><%=post.user.username%></strong> <%=post.text%></div>
                 <div class="post-comments"><a href="comments#comment">View all comments</a></div>
                 <div class="post-time"><%24* 2600*(Time.now-(post.created_at))%></div>

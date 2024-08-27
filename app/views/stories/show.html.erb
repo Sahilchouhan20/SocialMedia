@@ -1,5 +1,24 @@
-    <%= link_to main_app.rails_blob_url(@story.stories.first.attachments.first), target: "_blank" do %>
+<style>
+  .story-indicator {
+  position: relative;
+  display: inline-block;
+}
+
+.story-circle {
+  border: 2px solid #ff4500; /* Orange color similar to Instagram */
+  border-radius: 50%;
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  object-fit: cover;
+  padding: 2px;
+}
+</style>
+<body>
+  <div class="story-indicator">
+        <%= link_to main_app.rails_blob_url(@story.stories.first.attachments.first), target: "_blank" do %>
       <%= video_tag main_app.rails_blob_url(@story.stories.first.attachments.first), controls: true, class: 'videoclass', width:"500px", height:"600px"%>
     <% end %>
     <%= render partial:"likes/button", locals: {likeable: @story} %>
     <%= link_to "Delete_story", story_path(@story), data:{turbo_method: :delete}%>
+  </div>
+</body>
