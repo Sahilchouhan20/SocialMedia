@@ -1,3 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap w/ Parcel</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="module" src="js/main.js"></script>
+
+     <style>
+      /* Import Font Dancing Script */
+      @import url(https://fonts.googleapis.com/css?family=Dancing+Script);
+      
 <% if user_signed_in? %> 
  <div> Welcome <%= current_user.email %> </div> 
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
@@ -25,5 +38,201 @@
 <%end%>
 
 <h1>Let Spend Time Here</h1>
+       <style>
 
+      * {
+          margin: 0;
+      }
 
+      body {
+          background-color: #e8f5ff;
+          font-family: italic;
+
+      }
+
+      /* NavbarTop */
+      .navbar-top {
+          background-color: #fff;
+          color: #333;
+          box-shadow: 0px 4px 8px 0px grey;
+          height: 110px;
+          position: sticky;
+      }
+      
+      .title {
+          font-family: 'Dancing Script', cursive;
+          padding-top: 15px;
+          position: relative;
+          left: 22%;
+          font-size:larger;
+          top:-15px;
+      }
+
+      .navbar-top ul {
+          float: right;
+          list-style-type: none;
+          margin: 0;
+          overflow: hidden;
+          padding: 18px 50px 0 40px;
+      }
+
+      .navbar-top ul li {
+          float: left;
+      }
+
+      .navbar-top ul li a {
+          color: #333;
+          padding: 14px 16px;
+          text-align: center;
+          text-decoration: none;
+      }
+
+      .icon-count {
+          background-color: #ff0000;
+          color: #fff;
+          float: right;
+          font-size: 11px;
+          left: -25px;
+          padding: 2px;
+          position: relative;
+      }
+
+      /* End */
+       /* Sidenav */
+      .sidenav {
+          background-color: #fff;
+          color: #333;
+          border-bottom-right-radius: 25px;
+          height: 100%;
+          left: 0;
+          overflow-x: hidden;
+          padding-top: 20px;
+          position: fixed;
+          top: 70px;
+          width: 205px;
+          margin-top: -70px;
+      }
+
+      .profile {
+          margin-bottom: 20px;
+          margin-top: -12px;
+      }
+
+      .profile img {
+          border-radius: 50%;
+          box-shadow: 0px 0px 5px 1px grey;
+      }
+
+      .name {
+          font-size: 20px;
+          font-weight: bold;
+          padding-top: 20px;
+      }
+
+      .job {
+          font-size: 16px;
+          font-weight: bold;
+          padding-top: 10px;
+      }
+
+      .url, hr {
+          text-align: center;
+      }
+
+      .url hr {
+          margin-left: 20%;
+          width: 60%;
+      }
+
+      .url a {
+          color: #818181;
+          display: block;
+          font-size: 16px;
+          margin: 23px 0;
+          padding: 6px 8px;
+          text-decoration: none;
+      }
+
+      .url a:hover, .url .active {
+          background-color: #e8f5ff;
+          border-radius: 28px;
+          color: #000;
+          margin-left: 14%;
+          width: 65%;
+      }
+
+      /* End */
+
+       /* Main */
+      .main {
+          margin-top: 2%;
+          margin-left: 210px;
+          font-size: 14px;
+          padding: 0 10px;
+          width: 58%;
+      }
+      /* End */
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar top -->
+    <div class="navbar-top">
+    </div>
+    <!-- End -->
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+      <div class="title">
+            <h1>Fanatic</h1>
+        </div>
+           <div class="url">
+                <a href="#settings"><i class="bi bi-house-door-fill"></i><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+</svg>Home</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>Search</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+</svg>New Posts</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0M1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/>
+  <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm6 8.73V7.27l-3.5 1.555v4.35zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1"/>
+  <path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6M7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg>Reels</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+</svg>Profile</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="black" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+</svg>Settings</a>
+                <hr align="center">
+            </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+      <%= render template:"posts/index"%>
+    </div>
+    <!-- End -->
+  
+</body>
+</html>
