@@ -22,24 +22,16 @@
           font-family: italic;
 
       }
-
-      /* NavbarTop */
+       /* NavbarTop */
       .navbar-top {
           background-color: #fff;
           color: #333;
           box-shadow: 0px 4px 8px 0px grey;
-          height: 110px;
+          height: 70px;
+          margin-left:205px;
           position: sticky;
       }
-      
-      .title {
-          font-family: 'Dancing Script', cursive;
-          padding-top: 15px;
-          position: relative;
-          left: 22%;
-          font-size:larger;
-          top:-15px;
-      }
+    
 
       .navbar-top ul {
           float: right;
@@ -72,8 +64,7 @@
 
       /* End */
 
-       /* Main */
-      .main {
+.main {
           margin-top: 2%;
           margin-left: 210px;
           font-size: 14px;
@@ -87,17 +78,24 @@
 
     <!-- Navbar top -->
     <div class="navbar-top">
-    </div>
+      <%= form_with url: search_path, method: :get, local: true do %>
+  <span> <%= label_tag :search, "Search:" %> </span>
+  <span> <%= text_field_tag :search%> </span>
+  <span> <%= submit_tag "Search" %> </span>
+<% end %>
+  </div>
+
+  <div class="main">
+      <% @users.each do |user|%>
+        <%= link_to "#{user.name}", user_path(user) %><br>
+      <%end%>
+  </div>
+
     <!-- End -->
-
-
     <%=render partial: "homes/navside" %>
 
-    <!-- Main -->
-    <div class="main">
-      <%= render template:"posts/index"%>
-    </div>
-    <!-- End -->
   
 </body>
 </html>
+
+

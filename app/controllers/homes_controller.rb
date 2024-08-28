@@ -1,8 +1,7 @@
 class HomesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    @posts = Post.all.with_attached_images
+  def search
     if params[:search].present?
       @users = User.where('username LIKE :search OR name LIKE :search', search: "%#{params[:search]}%")
      else
@@ -10,8 +9,12 @@ class HomesController < ApplicationController
     end
   end
 
+  def index
+    @posts = Post.all.with_attached_images
+  end
+
   def show
-    @post = current_user.posts.all.with_attached_images
+
   end
 
 end

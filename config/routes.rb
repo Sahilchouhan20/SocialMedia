@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-    resources :profiles, only: [] do
+    resources :profiles, only: [:show] do
       collection do
         post 'follow'
         delete 'unfollow'
@@ -26,4 +26,6 @@ Rails.application.routes.draw do
   resources :likes
 
   resources :stories
+
+  get 'search', to: 'homes#search'
 end
