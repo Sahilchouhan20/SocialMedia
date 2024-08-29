@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :instance_post
   before_action :instance_comment
 
-  def show
+  def index
     @comments = @post.comments
   end
 

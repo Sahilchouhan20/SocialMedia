@@ -1,11 +1,14 @@
 class StoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :instance_story
 
   def index
+    @stories =  Story.all
   end
 
   def show
-    @story = current_user.stories.find_by(id: params[:id])
+    @next_story = Story.where('id > ?', @story.id).first
+    @prev_story = Story.where('id < ?', @story.id).last
   end
 
   def new

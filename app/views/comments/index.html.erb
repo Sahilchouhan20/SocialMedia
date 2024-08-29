@@ -1,13 +1,7 @@
-<style>
-  .comments-card{
-    border:solid;
-  }
-</style>
-
 <div id="comments-c>
   <div class="single-comment">
     <div class="username">
-      <%=comment.post.user.username%>
+    <% @comments.each do |comment|%>
       <div class="discriptions">
         <%= comment.discription%><br>
       </div>
@@ -18,5 +12,6 @@
                   turbo_confirm: "Are you sure?"
                 } %> <br>
       </div>
+      <% end %>
   </div>
 </div>

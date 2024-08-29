@@ -1,5 +1,81 @@
-    <%= link_to main_app.rails_blob_url(@story.stories.first.attachments.first), target: "_blank" do %>
-      <%= video_tag main_app.rails_blob_url(@story.stories.first.attachments.first), controls: true, class: 'videoclass', width:"500px", height:"600px"%>
-    <% end %>
-    <%= render partial:"likes/button", locals: {likeable: @story} %>
-    <%= link_to "Delete_story", story_path(@story), data:{turbo_method: :delete}%>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Story View</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+    /* app/assets/stylesheets/application.css */
+
+.story-view {
+  padding: 20px;
+}
+
+.story-view-content {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.story-image img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.storytail{
+  display: flex;
+  flex-direction: row;
+}
+
+.story-username {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.story-controls {
+  margin-top: 20px;
+}
+
+.story-control {
+  display: inline-block;
+  padding: 1px 1px;
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin: 0 1px;
+}
+
+.story-control.prev {
+  background-color: gray;
+}
+
+  </style>
+</head>
+<body>
+  <div class="story-view">
+    <div class="story-view-content">
+      <div class="story-image">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAADBQIEBgcBAP/EAEAQAAIBAwIDBgMGAgcJAQAAAAECAwAEEQUhEjFBBhMiUWFxgZGhFCMyUrHBFdEkRHKSstLwJTRCQ1Nig6LxB//EABgBAQADAQAAAAAAAAAAAAAAAAIAAQME/8QAJREAAwACAwABAgcAAAAAAAAAAAECESEDEjFBBMEFEyIjUXGB/9oADAMBAAIRAxEAPwDNWttFHcTNNdwd33bBXa5BJz+ZcYG3r86AtuwTi/i1sSviRAfCf+0sCOmelBOg6m8srWlncS2yu6xSlT41BIB+leLomtZCrplyCTjxRbb1k+yYOuvB12Pt7Vb6YazNby2jxkFRKMcxnPCc8ga19wOx4jElsbMtGjqhWVsg42G59udc9h0TW4XYy6dNwmKUE93jco2PmcCqZ0TWCAV0u6AxjJjIpdqwV0HZMNvLOHJEZkPCVkXdc4GPIYqMUNkttNML9TIGfEOQHbBPCfjsetIG0bUxlW02fi/sV7d6HfGeMyQPwmJQxjAfG3LbkaxXHv03hftUv6+5fW5C26pNIofvCfx4NBtp0TU7/huFVJ4lCHiwCc4/Slj6NdHY20q7c3XO/wAKE+j3/EOC1kI9FORT6GSlm1tpNMjSL7XqMfeRjYRNxLke+xryfWNL7plMTSbhjxTAAkeQFYn+D3uT/RJdxvlKk2kXKf1Scb9U+tUuJE34bddU0ZszfZIBKAQfvyCR0w2aZQdqdMMY+9jjCjhCiUDAHy/SuZnTbsf1ZqGdOulO9qT8KNfTxXpFlPR3eNZYgFgmt4x+VYSB/iqYe7A/32E+8Lf56jb6nHe3V3HBCq/Z5AniH4wRkNyxg4PInbGcHIBpZhDC803AiIOJjnpXd0kPZke8vCmDc2zHbH3TDrn8xqYlu+LImtx5eEnFc/1rtzcGZl09hDEpwDgEt8TUuzfbW8lvo7fUSrxyMFDhQCufbpQ/QNq0bp1uSQftFuT1zE2//tVDTI55Bc5mi8N3IDxIT1HLenYLgY7tPlmqWkMytfgIh/pknMctlNW4WRRT/Lr/AADLZSuNpbYHP/Tbl/e96gLCVfE81lgbkmBvr46chn/InyoGpRWtzYyQ6hFxwv8AijU8PEAQeYwfepUzKyCXVPBkL3XtMtC0bz2zjOPBatg/N6hpup6Vq062sFzbRy4JAa3Iz548e9YftBbTWt9cSwWscUfGeFETAUdB8BSuLWpIWUSHHCQRjYj2I5GgsfA2saOxt2eY7GS2Pr3TD6cVDfs2xbImhH/jb/NTvQbqbUNC0+8dSTPbo5bHMkbmruW/JWvSTPszIWdzHFMZdPhCpLJmadsMCAMAYPL29NvSh2x7RLbaM1vJKrSTEEBkVRgEHyyTt6VSsr57cJGZXdHdV+9xhR16Dp/ryQduXW/uR3bCWIABSp6iufFSsU8mnGk/DK3t3EJj3LFh5uMGruiSs8ySBSUidSxUjbfl+tULnT+7RsE8QGcft8qYdiIprjWo7OKaGH7Rt3k5wq435+fPFJ5xoS3WztRubqRFWK8kCtjhJlK56dTioWsN/ZyOxupVEshc4kyOLbOcH0qonYQvqj338T44mjCtFw83C4zkHlty+tMITPZ/7PvmDyIA0bhyeNckA+h2od6nHYamaVYZdiubsNwu0z55YkP86W601v8Aa4mvpZQ0al41Lggnkeu3IUC4tvttyrtOe4xho1XPFn1+PlSu7to7GF4I5HYu/GVO4Q9AKnLWVoHA9tv34FmoS28dzNxiORpj4kLeHHRQD7c8VC3W1EZVLa3WPy7pRkeZHrRbkwySMwkdATnhVF39zjJ+dBMaMQRHJKwGR3jjhT4efwNYmj2aHTtRXu0tyxjQeFChwE9MDpTJZZUGBdSqOeznesWBKpJeVVH5Yxn6n+VanQbqS408GQElXKjgbGw/etYvHpnUmI1oyW9sxCsQzcAZhgE43xSlLyOSxg7yMRmNzG7Efi34s+mxA59Kt9q5Z49RktbpQkkOzRq3EFOOWfP/AF6VRs0jm0e6ZsmRWYrvy8IrelmdmcPqR1ILGqPwhmd9sHkcUta43weXlQ5LlxGI2bjQHIGdx8aqTTqQOBCuOZJzmqU72J1/B1TsB2+trCCPTdXWV4UBEM6Zdwc7KwzuPI+gG9Q7SduNOudWK2KXAcYWItHjoNufnmuVd6ycLqaNAXvLyFPu8ysIwSMBcnG+PequJtYZU008o7TI+paVZRS3tvHEsp8JDcR5ZPtSHVJ7ifMkc4DEfhYfi9zTvt5eTWs8GnHJaOFWAUHGSSDv8B8qxqyvxkO2++Bzrm69dLwcYSAXGrzRHguFMZHIncfOgpqLO2GdSc8WWHEPf1qzcxGdShXPvSxtGKnbYeQyKWhDMalwnhZgSR7Z+FP7W7fuQYGcISTnHP1rL2elrGckU+t4ysQA5UWRGQv7x7q6nuJGzJLIzvkbZJyaJpdyg76NyMEBh69D+tVLhGjOcE0GN+5nRndcdQdjj2rtrwwKsoKOVJyAcZoDDINXtVj7mcOPwuNxS9pOgWinohEPjIxkdQac9jrc3vajS7eJEB+0pJh28JCHiOT7A1Ds52fue0mpw6fZSQxTyhihnZgrEAkjIB3wD8q1zf8A5lr+hXschv7aOXGVeFpMjmDvwjyousIWMejvt13y6tDLqCoqtHwx91KZEL78yQMEA8sdc0pVVwpXhDMN/Sq8uha/qC95PqqyRxSMuJZXcZU8JOCPrQdL03uL++jnnhvmiIUyRglcea5G++RWLGmvgYFEQ7ld9ueN/pRFiUDP7Y/aguqq2IQAevCv70aC1uJMbLvyLyf/AGgxnuB03o6E8Ph4cVNbHuyDI6t6AVZQgLgBRiqyQ5Wb6QL3brIAOqNgmgNJGfww/wB7c11yTRNFaA95o9k5bqEKEfFCKpxaDo0ZJi0u3Ug7cfFJ/jJrofPKO5fhHO3powhnl1TQo7NIC81hIzI3Nij7lQOu4z7ZpN3TciRj0roOq3LWd5ZW8EdukLyhCkcCR8+oKgEY586T3NjCxIlBkaK5eAO/4ioIwSep8VVNr1HHzfT1xX1r097G3kGi6rY6hcRNKtuxLIp3yVIz8OLPwrr2o6lo2tS27mexmlZPCj8PHuScYO9cS1JjBG5jwCo229KrdmoEu9WQXA4+EF9+pHLNU12lg5GqSXydH7Q3dhDxWmm2Ftx/8yZYlGOWQu3Pbc0g0xVW+RULqHjK7N1yOlMHjXhO1L7ZQil12ZXIB9yf5Csl4UlgfOcIAQG9xmq5VsngIj/sKBXyyu9vxNuwJGfOqi3UhnSLYKfL2oiGETHkzZ9zRuIH/iqaWEQjVnaR+Ibhm2+mKMkUQXaNN/TP61CH/9k=" alt="<%= @story.user.username %>">
+      </div>
+      <div class="story-username"><%= @story.user.username %></div>
+      <div class="story-controls">
+        <% if @prev_story %>
+          <a href="<%= story_path(@prev_story) %>" class="story-control prev">Previous</a>
+        <% end %>
+        <% if @next_story %>
+          <a href="<%= story_path(@next_story) %>" class="story-control next">Next</a>
+        <% end %>
+      </div>
+    </div>
+    <div class="storys">
+         <%= video_tag main_app.rails_blob_url(@story.stories.first.attachments.first), controls: true, class: 'videoclass', width:"500px", height:"600px"%>
+    </div>
+    <div class="storytail">
+         <%= render partial:"likes/button", locals: {likeable: @story} %>
+         <%= link_to "Delete_story", story_path(@story), data:{turbo_method: :delete}%>
+    </div>
+  </div>
+</body>
+</html>

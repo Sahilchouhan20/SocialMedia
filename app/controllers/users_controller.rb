@@ -6,42 +6,27 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id:params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
-  def new
-    @user = current_user.new
+
+  def edit
+    @user = User.find(params[:id])
   end
 
-  def create
-    @user = User.new(params[:user])
-    if @user.save == 'active'
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
       redirect_to @user
     else
-      render "new"
+      render :edit, status: :"profile can't be edit"
     end
   end
 
-  # def edit
-  #   @user = User.find(params[:id])
-  # end
-
-  # def update
-  #   @user = User.find(params[:id])
-
-  #   if @user.update(user_params)
-  #     redirect_to @user
-  #   else
-  #     render :edit, status: :"profile can't be edit"
-  #   end
-  # end
-
-  # def destroy
-  #   @user = User.find(params[:id])
-  #   @user.destroy
-
-  #   redirect_to root_path,status: :"Your id is not destory"
-  # end
-
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to root_path,status: :"Your id is not destory"
+  end
 
 end

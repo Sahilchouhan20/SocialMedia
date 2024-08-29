@@ -5,13 +5,13 @@ class LikesController < ApplicationController
     @like = @post.likes.new(like_params)
     @like.user_id = current_user.id
     @like.save
-    redirect_to home_path(@post.id)
+    redirect_to homes_path
   end
 
   def destroy
     @like = Like.find_by(id: params[:id])
     @like.destroy
-    redirect_to home_path
+    redirect_to homes_path
   end
 
   private
