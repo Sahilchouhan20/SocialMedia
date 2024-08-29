@@ -311,14 +311,16 @@ body {
                 <div class="post-user-info">
                     <img src="https://via.placeholder.com/50" alt="Profile" class="post-profile-pic">
                     <div>
+                        <%= link_to user_path(post.user.id) do %>
                         <span class="username"><%= post.user.username %></span>
+                        <% end %>
                     </div>
                 </div>
                 <div class="dropdown">
                 <i class="icon more-options" data-bs-toggle="dropdown">⋮</i>
                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Edit</a></li>
-        <li><a class="dropdown-item" href="#">Delete</a></li>
+        <li><a class="dropdown-item" href="edit/post/<%=post.id%>/">Edit</a></li>
+        <li><a class="dropdown-item" href="">Delete</a></li>
     </ul>
 </div>
       
@@ -338,7 +340,9 @@ body {
             <div class="post-actions">
                 <div class="left-actions">
                     <%= render partial:"likes/button", locals: {likeable: post} %>
-                    <a href="comments#comment"><i class="icon">💬</i></a>
+                    <%=link_to post_comments_path(post.id) do %>
+                    <i class="icon">💬</i></a>
+                     <% end %>
                 </div>
             </div>
 
@@ -346,14 +350,14 @@ body {
             <div class="post-details">
                 <div class="post-likes">Liked by <strong></strong> and <strong><a href="#">others</a></strong></div>
                 <div class="post-caption"><strong><%=post.user.username%></strong> <%=post.text%></div>
-                <div class="post-comments"><a href="comments#comment">View all comments</a></div>
-                <div class="post-time"><%24* 2600*(Time.now-(post.created_at))%></div>
+                <div class="post-comments"><a href="posts/<%=post.id%>/comments">View all comments</a></div>
+                <div class="post-time"><%=post.created_at%></div>
             </div>
             
             <!-- Add Comment -->
             <div class="add-comment">
             <input type="text" placeholder="Add a comment...">
-            <%button_to "Post", new_post_comment_path(post)%>
+            <%=button_to "Post", new_post_comment_path(post)%>
             </div>
         </article>
 

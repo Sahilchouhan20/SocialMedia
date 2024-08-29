@@ -3,7 +3,6 @@ class StoriesController < ApplicationController
   before_action :instance_story
 
   def index
-    debugger
     @stories =  Story.all
   end
 
