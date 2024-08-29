@@ -1,6 +1,11 @@
 class LikesController < ApplicationController
   before_action :instance_post,only:[:create]
 
+  def index
+    @post = Post.find_by(id: params[:post_id])
+    @likes = @post.likes
+  end
+
   def create
     @like = @post.likes.new(like_params)
     @like.user_id = current_user.id

@@ -1,11 +1,3 @@
-<% if user_signed_in? %> 
- <div> Welcome <%= current_user.email %> </div> 
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-  <hr />
-<% else %>
-  <%= button_to "Sign in", new_user_session_path %> 
-<% end %>
-
 <section style="background-color: #ad655f;">
   <div class="container my-5 py-5" style="margin-left:160px;">
     <div class="row d-flex justify-content-center">
@@ -15,12 +7,14 @@
             <h4 class="mb-0">Recent comments</h4>
             <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
             
-            <% @user.following.each do |user|%>
+            <% @likes.each do |like|%>
+
+            <% user = User.find_by(id:like.user_id)%>
 
             <div class="d-flex flex-start">
 
               <%if user.avatar.attached? %>
-               <%= image_tag main_app.rails_blob_url(user.avatar.attachment), style:"width:60px; height:60px;",class:"rounded-circle shadow-1-strong me-3"%>
+              <%= image_tag main_app.rails_blob_url(user.avatar.attachment), style:"width:60px; height:60px;",class:"rounded-circle shadow-1-strong me-3"%>
               <%else%>
                 <img class="rounded-circle shadow-1-strong me-3"
                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"

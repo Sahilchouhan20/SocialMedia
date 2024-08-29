@@ -197,6 +197,13 @@ body {
     margin-right: 10px;
 }
 
+.post-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 .username {
     font-weight: bold;
 }
@@ -309,20 +316,50 @@ body {
             <!-- Post Header -->
             <div class="post-header">
                 <div class="post-user-info">
-                    <img src="https://via.placeholder.com/50" alt="Profile" class="post-profile-pic">
+                    <%if post.user.avatar.attached? %>
+                      <%= image_tag main_app.rails_blob_url(post.user.avatar.attachment), class:"post-profile-pic"%>
+                    <%else%>
+                      <img src="" alt="Profile" class="post-profile-pic">
+                    <%end%>
                     <div>
-                        <%= link_to user_path(post.user.id) do %>
+                        <%= link_to user_path(post.user.id), class:"nav-link" do %>
                         <span class="username"><%= post.user.username %></span>
                         <% end %>
                     </div>
+
+                    <button type="button" class="btn btn-secondary">
+                        <% @user=post.user %>
+                        <% if current_user != @user %>
+                            <% if current_user.following?(@user) %>
+                            <div class="profile-button">
+                                <%= form_with url: unfollow_profiles_path(user_id: @user.id), method: :delete do %>
+                                <%= submit_tag 'unfollow', class: 'btn btn-primary' %>
+                            </div>
+                                <% end %>
+                            <% elsif current_user.sent_follow_request_to?(@user)%>
+                            <div class="profile-button">
+                                <%= form_with url: cancel_profiles_path(user_id: @user.id), method: :post do %>
+                                <%= submit_tag 'Cancel', class: 'btn btn-primary' %>
+                                <% end %>
+                                </div>
+                            <% elsif %>
+                            <div class="profile-button">
+                                <%= form_with url: follow_profiles_path(user_id: @user.id), method: :post do %>
+                                <%= submit_tag 'Follow', class: 'btn btn-primary' %>
+                                <% end %>
+                                </div>
+                            <% end %>
+                        <%end%>
+                    </button>
                 </div>
+                
                 <div class="dropdown">
                 <i class="icon more-options" data-bs-toggle="dropdown">⋮</i>
-                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="edit/post/<%=post.id%>/">Edit</a></li>
-        <li><a class="dropdown-item" href="">Delete</a></li>
-    </ul>
-</div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="posts/<%=post.id%>/edit">Edit</a></li>
+                    <li><%= link_to "Delete", post_path(post), method: :delete, data: {conform:"Are you sure"}%></li>
+                </ul>
+                </div>
       
                 
             </div>
@@ -340,7 +377,7 @@ body {
             <div class="post-actions">
                 <div class="left-actions">
                     <%= render partial:"likes/button", locals: {likeable: post} %>
-                    <%=link_to post_comments_path(post.id) do %>
+                    <%=link_to post_comments_path(post) do %>
                     <i class="icon">💬</i></a>
                      <% end %>
                 </div>
@@ -348,7 +385,9 @@ body {
 
             <!-- Post Details -->
             <div class="post-details">
+                <%=link_to likes_path(post_id:post.id) do%>
                 <div class="post-likes">Liked by <strong></strong> and <strong><a href="#">others</a></strong></div>
+                <% end %>
                 <div class="post-caption"><strong><%=post.user.username%></strong> <%=post.text%></div>
                 <div class="post-comments"><a href="posts/<%=post.id%>/comments">View all comments</a></div>
                 <div class="post-time"><%=post.created_at%></div>
@@ -357,7 +396,7 @@ body {
             <!-- Add Comment -->
             <div class="add-comment">
             <input type="text" placeholder="Add a comment...">
-            <%=button_to "Post", new_post_comment_path(post)%>
+            <%=link_to "Post", new_post_comment_path(post)%>
             </div>
         </article>
 

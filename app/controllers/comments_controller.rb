@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @post.comments
+
   end
 
   def new
@@ -43,7 +44,7 @@ class CommentsController < ApplicationController
   end
 
   def instance_post
-    @post = current_user.posts.find_by(id: params[:post_id])
+    @post = Post.find_by(id: params[:post_id])
   end
 
   def instance_comment
