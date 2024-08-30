@@ -1,11 +1,11 @@
+<%=render partial: "homes/navside" %>
 <section style="background-color: #ad655f;">
   <div class="container my-5 py-5" style="margin-left:160px;">
     <div class="row d-flex justify-content-center">
       <div class="col-md-12 col-lg-10">
         <div class="card text-body">
           <div class="card-body p-4">
-            <h4 class="mb-0">Recent comments</h4>
-            <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+            <h4 class="mb-0">Likes by Users</h4>
             
             <% @likes.each do |like|%>
 
@@ -44,10 +44,6 @@
                       <% end %>
                       </div>
                   <%end%>
-                <% else %>
-                  <div class="profile-button">
-                      <button type="button" class="btn-primary">Base class</button> 
-                  </div>
                 <%end%>
               </div>
             </div>
