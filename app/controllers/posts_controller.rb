@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
 
-    redirect_to homes_path,status: :"Your id is not destory"
+    redirect_to homes_path
   end
 
   private

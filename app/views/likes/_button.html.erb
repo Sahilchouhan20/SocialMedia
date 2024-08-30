@@ -2,5 +2,7 @@
 <% if like.nil? %>  
   <%=button_to("Like", likes_path(likeable),  class:"btn btn-success",  params:{ like: {likeable_id: likeable.id,  likeable_type: likeable.class.to_s}})%>
 <% else %>  
-  <%=button_to("Unlike", like_path(like),  class:"btn btn-success",params:{ like: {likeable_id: likeable.id,  likeable_type: likeable.class.to_s}},  method: :delete)%>
+  <%=link_to image_tag("heart.png", style:"height:25px; width:25px;"), like_path(like),params:{ like: {likeable_id: likeable.id,  likeable_type: likeable.class.to_s}}, data: {
+                  turbo_method: :delete
+                } %>
 <% end %>

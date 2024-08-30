@@ -1,3 +1,5 @@
+<%=render partial: "homes/navside" %>
+<div class="main" style="padding:10px; margin-left:210px;">
 <%= form_with model: @post do |form| %>
   <div class="field">
     <%= form.label :text%>
@@ -11,3 +13,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>

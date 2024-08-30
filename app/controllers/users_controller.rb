@@ -29,4 +29,10 @@ class UsersController < ApplicationController
     redirect_to root_path,status: :"Your id is not destory"
   end
 
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :avatar, :username, :bio)
+  end
+
 end

@@ -1,0 +1,24 @@
+<%=render partial: "homes/navside" %>
+<div class="main" style="padding: 10px; margin-left: 210px;">
+<%= form_with model: @user do |form| %>
+  <div class="field">
+    <%= form.label :name%><br>
+    <%= form.text_area :name%>
+    <hr>
+    <%= form.label :username%><br>
+    <%= form.text_area :username%>
+    <hr>
+    <%= form.label :bio%><br>
+    <%= form.text_area :bio%>
+    <hr>
+    <%=form.label :avatar, style: "display: block" %><br>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <hr>
+
+  <div class="action">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

@@ -1,7 +1,165 @@
-<% if user_signed_in? %> 
+<%=render partial: "homes/navside" %>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <title>Bootstrap Example</title>
+    
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <% if user_signed_in? %> 
  <div> Welcome <%= current_user.email %> </div> 
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
   <hr />
 <% else %>
   <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
+
+    <!-- Example Code -->
+    
+    <div class="friends" style="margin-left:250px;">    
+    <p class="d-inline-flex gap-1">
+      <a class="btn btn-primary collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        followers
+      </a>
+      <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampl" aria-expanded="false" aria-controls="collapseExample">
+        following
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample" style="">
+      <div class="card card-body">
+        
+<section style="background-color: #ad655f;">
+  <div class="container my-5 py-5" style="margin-left:0px;">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="card text-body">
+          <div class="card-body p-4">
+            <h4 class="mb-0">followers</h4>            
+            <% @user.followers.each do |user|%>
+
+            <div class="d-flex flex-start">
+
+              <%if user.avatar.attached? %>
+               <%= image_tag main_app.rails_blob_url(user.avatar.attachment), style:"width:60px; height:60px;",class:"rounded-circle shadow-1-strong me-3"%>
+              <%else%>
+                <img class="rounded-circle shadow-1-strong me-3"
+                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                height="60" />
+              <%end%>
+              <div>
+                <h6 class="fw-bold mb-1"><%= user.name %></h6>
+              </div>
+              <div class="d-flex flex-row-reverse" style="padding:5px; margin-left:69%;">
+                <% if current_user != user %>
+                  <% if current_user.following?(user) %>
+                    <div class="profile-button">
+                      <%= form_with url: unfollow_profiles_path(user_id: user.id), method: :delete do %>
+                      <%= submit_tag 'unfollow', class: 'btn btn-primary' %>
+                    </div>
+                      <% end %>
+                  <% elsif current_user.sent_follow_request_to?(user)%>
+                    <div class="profile-button">
+                      <%= form_with url: cancel_profiles_path(user_id: user.id), method: :post do %>
+                      <%= submit_tag 'Cancel', class: 'btn btn-primary' %>
+                      <% end %>
+                      </div>
+                  <% elsif %>
+                    <div class="profile-button">
+                      <%= form_with url: follow_profiles_path(user_id: user.id), method: :post do %>
+                      <%= submit_tag 'Follow', class: 'btn btn-primary' %>
+                      <% end %>
+                      </div>
+                  <%end%>
+                <% else %>
+                  <div class="profile-button">
+                      <button type="button" class="btn-primary">Base class</button> 
+                  </div>
+                <%end%>
+              </div>
+            </div>
+            <hr class="my-0" />
+            <br>
+            <%end%>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      </div>
+    </div>
+    <div class="collapse" id="collapseExampl" style="">
+      <div class="card card-body">
+        
+<section style="background-color: #ad655f;">
+  <div class="container my-5 py-5" style="margin-left:0px;">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="card text-body">
+          <div class="card-body p-4">
+            <h4 class="mb-0">following</h4>
+            
+            <% @user.following.each do |user|%>
+
+            <div class="d-flex flex-start">
+
+              <%if user.avatar.attached? %>
+               <%= image_tag main_app.rails_blob_url(user.avatar.attachment), style:"width:60px; height:60px;",class:"rounded-circle shadow-1-strong me-3"%>
+              <%else%>
+                <img class="rounded-circle shadow-1-strong me-3"
+                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                height="60" />
+              <%end%>
+              <div>
+                <h6 class="fw-bold mb-1"><%= user.name %></h6>
+              </div>
+              <div class="d-flex flex-row-reverse" style="padding:5px; margin-left:69%;">
+                <% if current_user != user %>
+                  <% if current_user.following?(user) %>
+                    <div class="profile-button">
+                      <%= form_with url: unfollow_profiles_path(user_id: user.id), method: :delete do %>
+                      <%= submit_tag 'unfollow', class: 'btn btn-primary' %>
+                    </div>
+                      <% end %>
+                  <% elsif current_user.sent_follow_request_to?(user)%>
+                    <div class="profile-button">
+                      <%= form_with url: cancel_profiles_path(user_id: user.id), method: :post do %>
+                      <%= submit_tag 'Cancel', class: 'btn btn-primary' %>
+                      <% end %>
+                      </div>
+                  <% elsif %>
+                    <div class="profile-button">
+                      <%= form_with url: follow_profiles_path(user_id: user.id), method: :post do %>
+                      <%= submit_tag 'Follow', class: 'btn btn-primary' %>
+                      <% end %>
+                      </div>
+                  <%end%>
+                <% else %>
+                  <div class="profile-button">
+                      <button type="button" class="btn-primary">Base class</button> 
+                  </div>
+                <%end%>
+              </div>
+            </div>
+            <hr class="my-0" />
+            <br>
+            <%end%>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      </div>
+    </div>
+    
+    </div>
+    <!-- End Example Code -->
+  </body>
+</html>
