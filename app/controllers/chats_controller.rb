@@ -1,4 +1,11 @@
 class ChatsController < ApplicationController
+  def start_chat
+    @user = current_user
+    @other_user = User.find(params[:other_user_id])
+    @chat = find_or_create_chat
+    redirect_to @chat
+  end
+
   def show
     @user = current_user
     @chats = @user.chats

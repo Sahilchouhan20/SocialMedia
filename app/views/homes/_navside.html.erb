@@ -61,8 +61,13 @@
               <% else %>
                 <%= button_to "Sign in", new_user_session_path %> 
               <% end %>
+
+              <% current_user.pending_requests.each do |request| %>
+    <%= request.followable.name %> wants to follow you
+    <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
+    <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
+  <%end%>
             </div>
-             <%= link_to "chat", chat_path(current_user)%>
     </div>
 </body>
 </html>

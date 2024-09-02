@@ -37,4 +37,6 @@ Rails.application.routes.draw do
     resources :messages, param: :chat_id
   end
 
+  get 'start_chat', to: 'chats#start_chat'
+
 end

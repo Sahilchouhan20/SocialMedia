@@ -47,11 +47,12 @@
             <!-- Post Image -->
             <div class="post-image">
                 <% if post.images.attached? %>
-    <% attachment = post.images.first.attachments.first %>
-    <%= link_to main_app.rails_blob_url(attachment), target: "_blank" do %>
-      <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
-    <% end %>
-    <%end %>
+      <% attachment = post.images.first.attachments.first %>
+      <%= link_to main_app.rails_blob_url(attachment), target: "_blank" do %>
+        <%= image_tag main_app.rails_blob_url(attachment), class: 'img-thumbnail'%>
+      <% end %>
+      <%end %>
+          </div>
 
             <!-- Post Actions -->
             <div class="post-actions">

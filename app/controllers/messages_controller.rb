@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
       ChatChannel.broadcast_to(
         @chat,
         message: render_to_string(partial: "messages/message"),
-        locals: { message: @message }),
+        locals: { message: @message },
         sender_id: @message.user.id
       )
       head :ok
