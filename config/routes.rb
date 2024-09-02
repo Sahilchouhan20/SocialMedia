@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'chat_users/create'
+  get 'messages/create'
+  get 'chats/show'
 
     resources :profiles, only: [:show] do
       collection do
@@ -28,4 +31,10 @@ Rails.application.routes.draw do
   resources :stories
 
   get 'search', to: 'homes#search'
+
+
+  resources :chats do
+    resources :messages, param: :chat_id
+  end
+
 end

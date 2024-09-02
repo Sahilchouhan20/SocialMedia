@@ -143,14 +143,7 @@
                 <%= button_to "Sign in", new_user_session_path %> 
               <% end %>
             </div>
+             <%= link_to "chat", chat_path(current_user)%>
     </div>
-    
-    <% if user_signed_in? %> 
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-    <% else %>
-      <%= button_to "Sign in", new_user_session_path %> 
-    <% end %>
-    <!-- End -->
-  
 </body>
 </html>
