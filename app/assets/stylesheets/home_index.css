@@ -10,7 +10,7 @@
       }
 
       .mainmain {
-        margin-top: 10%;
+        margin-top: 0px;
         margin-left: 210px;
         font-size: 14px;
         padding: 0 10px;
@@ -26,31 +26,12 @@
           top:-15px;
       }
 
-      .navbar-top ul {
-          float: right;
-          list-style-type: none;
-          margin: 0;
-          overflow: hidden;
-          padding: 18px 50px 0 40px;
-      }
-
-      .navbar-top ul li {
-          float: left;
-      }
-
-      .navbar-top ul li a {
-          color: #333;
-          padding: 14px 16px;
-          text-align: center;
-          text-decoration: none;
-      }
-
-      .icon-count {
-          background-color: #ff0000;
-          color: #fff;
-          float: right;
-          font-size: 11px;
-          left: -25px;
-          padding: 2px;
-          position: relative;
+      .navbar-top {
+          position:relative;
+          margin-left:15%;
+          width: 52%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          background: white;
       }

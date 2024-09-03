@@ -1,0 +1,45 @@
+
+.story-view {
+    padding: 20px;
+  }
+  
+  .story-view-content {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+  
+  .story-image img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+  }
+  
+  .storytail{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .story-username {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .story-controls {
+    margin-top: 20px;
+  }
+  
+  .story-control {
+    display: inline-block;
+    padding: 1px 1px;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 1px;
+  }
+  
+  .story-control.prev {
+    background-color: gray;
+  }

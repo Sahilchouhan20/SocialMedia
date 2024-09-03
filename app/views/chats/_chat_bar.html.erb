@@ -1,16 +1,37 @@
+<style>
+  .gradient-custom {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to bottom right, rgba(252, 203, 144, 1), rgba(213, 126, 235, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to bottom right, rgba(252, 203, 144, 1), rgba(213, 126, 235, 1))
+}
+
+.mask-custom {
+background: rgba(24, 24, 16, .2);
+border-radius: 2em;
+backdrop-filter: blur(15px);
+border: 2px solid rgba(255, 255, 255, 0.05);
+background-clip: padding-box;
+box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+</style>
+
 <section>
-  <div class="container py-5">
+  <div class=" card container py-5">
 
     <div class="row">
   
       <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
 
-        <h5 class="font-weight-bold mb-3 text-center text-lg-start">Member</h5>
+        <h5 class="font-weight-bold mb-3 text-center text-lg-start">Chats</h5>
         
-
         <% User.all.each do |other_user|%>
         <% if other_user != current_user %>
-        <div class="card" style="width:455px;">
+         <div class="card" style="width:455px;">
           <div class="card-body">
             <ul class="list-unstyled mb-0">
               <li class="p-2 border-bottom bg-body-tertiary">
@@ -34,7 +55,6 @@
             </ul>
           </div>
         </div>
-        
         <%end%>
       <%end%>
 

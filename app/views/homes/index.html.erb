@@ -12,6 +12,7 @@
 
     <!-- Navbar top -->
     <div class="navbar-top">
+      <%= render template: "stories/index", locals: {stories: @stories } %>
     </div>
     <!-- End -->
 
@@ -22,8 +23,8 @@
       <%= render template:"posts/index"%>
     </div>
 
-    <div class="chats" style="margin-top:-182%; position:fixed; height:100%; margin-left:950px; color:black;">
-      <%= render partial: "chats/chat_bar"%>
+    <div class="chats" style="margin-top:-144%; position:fixed; height:100%; margin-left:950px; color:black; overflow: scroll;">
+      <%= render partial:"chats/chat_bar", locals: {chats: User.all}%>
     <!-- End -->
     </div>
   
