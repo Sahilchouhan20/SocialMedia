@@ -75,3 +75,5 @@ gem 'followability', github: 'nejdetkadir/followability', branch: 'main'
 
 # Gemfile
 gem 'redis'
+
+gem 'rubocop', require: false

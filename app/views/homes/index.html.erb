@@ -5,28 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap w/ Parcel</title>
     <link rel="stylesheet" href="home_index.css">
-    <script type="module" src="js/main.js"></script>
-
   </head>
   <body>
-
-    <!-- Navbar top -->
     <div class="navbar-top">
       <%= render template: "stories/index", locals: {stories: @stories } %>
     </div>
-    <!-- End -->
 
     <%=render partial: "homes/navside" %>
 
-    <!-- Main -->
     <div class="mainmain">
       <%= render template:"posts/index"%>
     </div>
 
     <div class="chats" style="margin-top:-144%; position:fixed; height:100%; margin-left:950px; color:black; overflow: scroll;">
       <%= render partial:"chats/chat_bar", locals: {chats: User.all}%>
-    <!-- End -->
     </div>
-  
-</body>
+  </body>
 </html>
