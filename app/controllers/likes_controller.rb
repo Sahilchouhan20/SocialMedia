@@ -20,9 +20,8 @@ class LikesController < ApplicationController
 
   def destroy
     @like = Like.find_by(id: params[:id])
-    @likeable = @like
     @like.destroy
-    redirect_to @likeable
+    redirect_to homes_path
   end
 
   private
@@ -34,7 +33,6 @@ class LikesController < ApplicationController
   def find_likeable
     @likeable = if params[:like][:likeable_type] == "Post"
                   Post.find_by(id: params[:like][:likeable_id])
-
                 elsif params[:like][:likeable_type] == "Story"
                   Story.find_by(id: params[:like][:likeable_id])
                 else

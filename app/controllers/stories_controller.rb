@@ -3,12 +3,15 @@ class StoriesController < ApplicationController
   before_action :instance_story
 
   def index
+    debugger
     @stories =  Story.all
+    render layout: false
   end
 
   def show
-    @next_story = Story.where('id > ?', @story.id).first
-    @prev_story = Story.where('id < ?', @story.id).last
+    @user = @story.user
+    @next_story = @user.stories.where('id > ?', @story.id).first
+    @prev_story = @user.stories.where('id < ?', @story.id).last
   end
 
   def new
@@ -40,5 +43,4 @@ class StoriesController < ApplicationController
   def instance_story
     @story = Story.find_by(id: params[:id])
   end
-
 end
