@@ -363,6 +363,7 @@ body {
                 </div>
                 
                 <div class="dropdown">
+                <% if current_user == post.user %>
                 <i class="icon more-options" data-bs-toggle="dropdown">...</i>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="posts/<%=post.id%>/edit">Edit</a></li>
@@ -371,6 +372,7 @@ body {
                   turbo_confirm: "Are you sure?"
                 } %></li>
                 </ul>
+                <% end %>
                 </div>
       
                 
