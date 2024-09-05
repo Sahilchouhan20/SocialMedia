@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
-  def index
-
-  end
+  before_action :find_user
 
   def show
     @user = User.find_by(id: params[:id])
@@ -11,11 +8,10 @@ class UsersController < ApplicationController
 
 
   def edit
-    @user = User.find(params[:id])
+    @user
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to @user
     else
@@ -24,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to root_path,status: :"Your id is not destory"
   end
@@ -35,4 +30,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :avatar, :username, :bio)
   end
 
+  def find_user
+    @user = User.find_by(id: params[:id])
+  end
 end

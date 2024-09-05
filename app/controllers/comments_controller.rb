@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :instance_post
-  before_action :instance_comment
+  before_action :find_post
+  before_action :find_comment
 
   def index
     @comments = @post.comments
@@ -39,15 +39,16 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def comment_params
     params.require(:comment).permit(:discription)
   end
 
-  def instance_post
+  def find_post
     @post = Post.find_by(id: params[:post_id])
   end
 
-  def instance_comment
+  def find_comment
     @comment = Comment.find_by(id: params[:id])
   end
 end

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :instance
+  before_action :find_post
 
   def index
     @posts = Post.all.with_attached_images
@@ -48,7 +48,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:text,:images)
   end
 
-  def instance
+  def find_post
     @post = Post.find_by(id: params[:id])
   end
 end

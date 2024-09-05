@@ -1,9 +1,8 @@
 class StoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :instance_story
+  before_action :find_story
 
   def index
-    debugger
     @stories =  Story.all
     render layout: false
   end
@@ -40,7 +39,7 @@ class StoriesController < ApplicationController
     params.require(:story).permit(:stories)
   end
 
-  def instance_story
+  def find_story
     @story = Story.find_by(id: params[:id])
   end
 end
