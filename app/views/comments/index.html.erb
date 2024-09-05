@@ -8,36 +8,33 @@
             <h4 class="mb-0">Recent comments</h4>
             <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
             <% @comments.each do |comment|%>
-            <div class="d-flex flex-start">
+              <div class="d-flex flex-start">
                 <%if comment.post.user.avatar.attached? %>
-                    <%= image_tag main_app.rails_blob_url(comment.post.user.avatar.attachment), style:"width:60px;
-                height:60px",class:"rounded-circle shadow-1-strong me-3"%>
-                  <%else%>
-                    <img class="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
-                height="60" />
+                  <%= image_tag main_app.rails_blob_url(comment.post.user.avatar.attachment), style:"width:60px;height:60px",class:"rounded-circle shadow-1-strong me-3"%>
+                <%else%>
+                  <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60" height="60" />
                 <%end%>
               <div>
-                <h6 class="fw-bold mb-1"><%=comment.post.user.name%></h6>
-                <div class="d-flex align-items-center mb-3">
-                  <p class="mb-0">
-                    <%= comment.discription %>
-                  </p> 
-                  <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i><%= link_to "edit", edit_post_comment_path(comment.post, comment)%></a>
-                  <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i><%=link_to "delete", [comment.post, comment], data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "Are you sure?"
-                } %></a>
-                  <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-                </div>
-               
+              <h6 class="fw-bold mb-1"><%=comment.post.user.name%></h6>
+              <div class="d-flex align-items-center mb-3">
+                <p class="mb-0">
+                  <%= comment.discription %>
+                </p> 
+                <% if comment.post.user ==  current_user%>
+                  <%= link_to edit_post_comment_path(comment.post, comment), class:"nav-link" do%>
+                    <i class="fas fa-pencil-alt ms-2"></i>
+                  <%end%>
+                  <%=link_to [comment.post, comment], data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"nav-link" do %>
+                    <i class="fas fa-trash-alt ms-2"></i>
+                  <%end%>
+                <% end %>
+
+                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
               </div>
-            </div>
-            <hr class="my-0" />
-            <br>
+              <hr class="my-0" />
+              <br>
             <%end%>
           </div>
-        
         </div>
       </div>
     </div>
