@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  include PostHelper
   before_action :authenticate_user!
   before_action :find_post
 
@@ -38,7 +39,6 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-
     redirect_to homes_path
   end
 
@@ -51,4 +51,5 @@ class PostsController < ApplicationController
   def find_post
     @post = Post.find_by(id: params[:id])
   end
+
 end

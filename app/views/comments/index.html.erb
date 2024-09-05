@@ -21,6 +21,7 @@
                   <%= comment.discription %>
                 </p> 
                 <% if comment.post.user ==  current_user%>
+                  <%= render partial:"likes/button", locals: {likeable: comment}, style:"height:25px; width:25px;"%>
                   <%= link_to edit_post_comment_path(comment.post, comment), class:"nav-link" do%>
                     <i class="fas fa-pencil-alt ms-2"></i>
                   <%end%>
@@ -28,8 +29,6 @@
                     <i class="fas fa-trash-alt ms-2"></i>
                   <%end%>
                 <% end %>
-
-                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
               </div>
               <hr class="my-0" />
               <br>
