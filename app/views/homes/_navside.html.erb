@@ -38,16 +38,18 @@
 
             <div class="url">
               <% if user_signed_in? %> 
-                <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+                <%= link_to destroy_user_session_path, method: :delete, class:"nav-link" do %> 
+                  <i class="fas fa-sign-out-alt ms-2"></i>
+                <%end%>
               <% else %>
                 <%= button_to "Sign in", new_user_session_path %> 
               <% end %>
 
               <% current_user.pending_requests.each do |request| %>
-        <%= request.followable.name %> wants to follow you
-        <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
-        <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
-      <%end%>
+                <%= request.followable.name %> wants to follow you
+                <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
+                <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
+              <%end%>
             </div>
     </div>
 </body>

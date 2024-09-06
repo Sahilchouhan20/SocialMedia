@@ -1,5 +1,5 @@
 <%@posts.each do |post|%>
-<% if current_user.following?(post.user) || current_user == post.user %>
-<%=render partial: "posts/shows", locals:{post: post}%>
-<%end%>
+  <% if current_user.following?(post.user) || current_user == post.user %>
+    <%=render partial: "posts/shows", locals:{post: post}%>
+  <%end%>
 <% end%>
