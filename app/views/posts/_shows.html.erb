@@ -28,10 +28,7 @@
               <i class="icon more-options" data-bs-toggle="dropdown">...</i>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="posts/<%=post.id%>/edit">Edit</a></li>
-                <li><%=link_to "delete", post_path(post),class:"nav-link", data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "Are you sure?"
-                } %></li>
+                <li><%= button_to "Delete", post_path(post), method: :delete, data: { turbo_confirm: "Are you sure?" } %></li>
               </ul>
             <% end %>
           </div>

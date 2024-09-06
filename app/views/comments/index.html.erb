@@ -25,7 +25,7 @@
                   <%= link_to edit_post_comment_path(comment.post, comment), class:"nav-link" do%>
                     <i class="fas fa-pencil-alt ms-2"></i>
                   <%end%>
-                  <%=link_to [comment.post, comment], data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"nav-link" do %>
+                  <%=button_to post_comment_path(comment.post, comment), method: :delete, data: { turbo_confirm: "Are you sure?" } do%>
                     <i class="fas fa-trash-alt ms-2"></i>
                   <%end%>
                 <% end %>

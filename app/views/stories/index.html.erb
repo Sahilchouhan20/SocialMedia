@@ -7,6 +7,12 @@
 </head>
 <body>
   <div class="stories-container">
+    <div class="add-stories">
+      <%= link_to new_story_path, class:"nav-link" do%>
+        <i class="fa-light fa-plus"></i>
+      <% end %>
+    </div>
+
     <% User.all.each do |story| %>
     <%if story == current_user%>
     <%if story.stories.present?%>

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  validates :name, :username, :bio, presence: true
+
   followability
 
   # Include default devise modules. Others available are:

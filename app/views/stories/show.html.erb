@@ -32,7 +32,9 @@
     <div class="storytail">
          <%= render partial:"likes/button", locals: {likeable: @story} %>
          <% if @story.user == current_user%>
-         <%= link_to "Delete_story", story_path(@story), data: {turbo_method: :delete}%>
+          <%=button_to story_path(@story), method: :delete, data: { turbo_confirm: "Are you sure?" } do%>
+            <i class="fas fa-trash-alt ms-2"></i>
+          <%end%>
          <% end %>
     </div>
   </div>
