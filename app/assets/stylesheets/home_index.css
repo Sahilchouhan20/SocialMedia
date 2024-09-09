@@ -35,3 +35,12 @@
           flex-wrap: nowrap;
           background: white;
       }
+
+      .chats{
+        margin-top:-144%; 
+        position:fixed; 
+        height:100%; 
+        margin-left:950px; 
+        color:black; 
+        overflow: scroll;
+      }

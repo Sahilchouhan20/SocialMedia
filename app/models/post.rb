@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  validates :user_id, :text, presence: true
   has_many_attached :images, dependent: :destroy
   belongs_to :user
   has_many :comments, dependent: :destroy

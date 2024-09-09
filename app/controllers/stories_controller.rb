@@ -1,9 +1,10 @@
 class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_story
+  before_action :remove_expired_stories
 
   def index
-    @stories =  Story.all
+    @stories =  Story.active
     render layout: false
   end
 
@@ -41,5 +42,9 @@ class StoriesController < ApplicationController
 
   def find_story
     @story = Story.find_by(id: params[:id])
+  end
+
+  def remove_expired_stories
+    Story.remove_expired
   end
 end
