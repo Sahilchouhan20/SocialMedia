@@ -1,5 +1,4 @@
 class LikesController < ApplicationController
-  include LikeHelper
   before_action :find_likeable,only:[:create]
 
   def index

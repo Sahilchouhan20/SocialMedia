@@ -34,7 +34,7 @@
 
             <div class="url">
               <% if user_signed_in? %> 
-                <%= link_to destroy_user_session_path, method: :delete, class:"nav-link" do %> 
+                <%= button_to destroy_user_session_path, method: :delete, class:"nav-link", style:"margin-left: 87px;" do %> 
                   <i class="fas fa-sign-out-alt ms-2"></i>
                 <%end%>
               <% else %>
