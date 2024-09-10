@@ -115,6 +115,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
+    docile (1.4.1)
     drb (2.2.1)
     erubi (1.13.0)
     factory_bot (6.5.0)
@@ -285,6 +286,11 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    simplecov (0.17.0)
+      docile (~> 1.1)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -344,6 +350,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   shoulda-matchers (~> 5.0)
+  simplecov (= 0.17.0)
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

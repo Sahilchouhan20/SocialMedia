@@ -94,3 +94,5 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
+
+gem "simplecov", '0.17.0'

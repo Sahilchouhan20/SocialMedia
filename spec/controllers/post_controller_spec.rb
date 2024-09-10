@@ -1,9 +1,10 @@
 require 'rails_helper'
+require 'simplecov'
 
 RSpec.describe PostsController, type: :controller do
   let(:user) { create(:user) }
   let(:valid_attributes) { attributes_for(:post, image: fixture_file_upload('spec/fixtures/files/image.png', 'image/png')) }
-  let(:invalid_attributes) { attributes_for(:post, text: nil) }
+  let(:invalid_attributes) { {text: ""}}
   let(:post) { create(:post, user: user) }
 
   before do
@@ -49,31 +50,31 @@ RSpec.describe PostsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Post" do
-        post :create, params: { post: valid_attributes }
+       it "creates a new Post" do
+        process :create, method: :post, params: { post: valid_attributes }
         expect(response).to have_http_status(:redirect)
         expect(Post.count).to eq(1)
       end
 
       it "redirects to the created post" do
-        post :create, params: { post: valid_attributes }
+        process :create, method: :post, params: { post: valid_attributes }
         expect(response).to redirect_to(Post.last)
       end
 
       it "attaches the image to the post" do
-        post :create, params: { post: valid_attributes }
+        process :create, method: :post, params: { post: valid_attributes }
         expect(Post.last.images).to be_attached
       end
 
       it "sets a success notice" do
-        post :create, params: { post: valid_attributes }
+        process :create, method: :post, params: { post: valid_attributes }
         expect(flash[:notice]).to eq('Post was successfully created.')
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { post: invalid_attributes }
+        process :create, method: :post, params: { post: invalid_attributes }
         expect(response).to be_successful
       end
     end

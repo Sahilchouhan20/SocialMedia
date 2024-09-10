@@ -66,10 +66,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include Devise::Test::ControllerHelpers, type: :controller
-
   RSpec.configure do |config|
     config.include FactoryBot::Syntax::Methods
+    config.include Rails::Controller::Testing::TestProcess
+    config.include Rails::Controller::Testing::TemplateAssertions
+    config.include Rails::Controller::Testing::Integration
+    config.include Devise::Test::ControllerHelpers, type: :controller
   end
 
   Shoulda::Matchers.configure do |config|
