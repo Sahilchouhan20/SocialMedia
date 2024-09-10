@@ -8,19 +8,20 @@
             <h4 class="mb-0">Recent comments</h4>
             <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
             <% @comments.each do |comment|%>
+            <% user = find_comment_user(comment)%>
               <div class="d-flex flex-start">
-                <%if comment.post.user.avatar.attached? %>
-                  <%= image_tag main_app.rails_blob_url(comment.post.user.avatar.attachment), style:"width:60px;height:60px",class:"rounded-circle shadow-1-strong me-3"%>
+                <%if user.avatar.attached? %>
+                  <%= image_tag main_app.rails_blob_url(user.avatar.attachment), style:"width:60px;height:60px",class:"rounded-circle shadow-1-strong me-3"%>
                 <%else%>
                   <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60" height="60" />
                 <%end%>
               <div>
-              <h6 class="fw-bold mb-1"><%=comment.post.user.name%></h6>
+              <h6 class="fw-bold mb-1"><%=user.username%></h6>
               <div class="d-flex align-items-center mb-3">
                 <p class="mb-0">
                   <%= comment.discription %>
                 </p> 
-                <% if comment.post.user ==  current_user%>
+                <% if user.id ==  current_user.id%>
                   <%= render partial:"likes/button", locals: {likeable: comment}, style:"height:25px; width:25px;"%>
                   <%= link_to edit_post_comment_path(comment.post, comment), class:"nav-link" do%>
                     <i class="fas fa-pencil-alt ms-2"></i>

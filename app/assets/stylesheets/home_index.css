@@ -37,10 +37,8 @@
       }
 
       .chats{
-        margin-top:-144%; 
-        position:fixed; 
-        height:100%; 
+        margin-top:-211%; 
         margin-left:950px; 
         color:black; 
-        overflow: scroll;
+        width:34%;
       }

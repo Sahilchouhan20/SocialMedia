@@ -9,44 +9,43 @@
     <link rel="stylesheet" href="home_nav.css">
   </head>
   <body>
-
     <!-- Sidenav -->
     <div class="sidenav">
       <div class="title">
-            <h1>Fanatic</h1>
-        </div>
-           <div class="url">
-                <a href="/homes"><i class="bi bi-house-door-fill"></i><%= image_tag('home.svg')%></a>
-                <hr align="center">
-            </div>
-            <div class="url">
-                <a href="search"><%= image_tag('search.svg')%></a>
-                <hr align="center">
-            </div>
-            <div class="url">
-                <a href="/posts/new"><%= image_tag('create.svg')%></a>
-                <hr align="center">
-            </div>
-            <div class="url">
-                <a href="users/<%=current_user.id%>"><%= image_tag('profile.svg')%></a>
-                <hr align="center">
-            </div>
+        <h1>Fanatic</h1>
+      </div>
+      <div class="url">
+        <a href="/homes"><i class="bi bi-house-door-fill"></i><%= image_tag('home.svg')%></a>
+        <hr align="center">
+      </div>
+      <div class="url">
+        <a href="search"><%= image_tag('search.svg')%></a>
+        <hr align="center">
+      </div>
+      <div class="url">
+        <a href="/posts/new"><%= image_tag('create.svg')%></a>
+        <hr align="center">
+      </div>
+      <div class="url">
+        <a href="users/<%=current_user.id%>"><%= image_tag('profile.svg')%></a>
+        <hr align="center">
+      </div>
 
-            <div class="url">
-              <% if user_signed_in? %> 
-                <%= button_to destroy_user_session_path, method: :delete, class:"nav-link", style:"margin-left: 87px;" do %> 
-                  <i class="fas fa-sign-out-alt ms-2"></i>
-                <%end%>
-              <% else %>
-                <%= button_to "Sign in", new_user_session_path %> 
-              <% end %>
-
-              <% current_user.pending_requests.each do |request| %>
-                <%= request.followable.name %> wants to follow you
-                <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
-                <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
-              <%end%>
-            </div>
+      <div class="url">
+        <% if user_signed_in? %> 
+          <%= button_to destroy_user_session_path, method: :delete, class:"nav-link", style:"margin-left: 87px;" do %> 
+            <i class="fas fa-sign-out-alt ms-2"></i>
+          <%end%>
+        <% else %>
+          <%= button_to "Sign in", new_user_session_path %> 
+        <% end %>
+        
+        <% current_user.pending_requests.each do |request| %> 
+          <%= request.followerable.name %> wants to follow you
+          <%= button_to 'Accept', accept_profiles_path(user_id:request.followable.id)%>
+          <%= button_to 'Decline', decline_profiles_path(user_id:request.followable.id)%>
+        <%end%>
+      </div>
     </div>
-</body>
+  </body>
 </html>
