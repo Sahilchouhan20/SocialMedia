@@ -3,7 +3,7 @@
  data-chat-subscription-chat-id-value="<%= @chat.id %>" 
 data-chat-subscription-current-user-id-value="<%= current_user.id %>"> 
  <!-- Your existing chat area HTML --> </div>
- 
+
 <style>
   .gradient-custom {
 /* fallback for old browsers */
@@ -39,6 +39,36 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
   .form-outline label {
     display: none; /* Hide the label if not needed */
   }
+
+  #chat-messages {
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.my-message {
+  background-color: #e6f3ff;
+  text-align: right;
+}
+
+.other-message {
+  background-color: #f0f0f0;
+}
+
+.delete-for-everyone, .delete-for-me {
+  font-size: 0.8em;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
 </style>
 <body class="gradient-custom">
 <section class="gradient-custom">
@@ -101,6 +131,15 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
                     <p class="fw-bold mb-0"><%= message.user.name %></p>
                     <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
                   </div>
+                  <div id="message_<%= message.id %>" class="message <%= message.user == current_user ? 'my-message' : 'other-message' %>">
+                    
+                    <% if message.user == current_user %>
+                    <%=button_to "Delete for everyone", chat_message_path(message), method: :delete%>
+
+                      <button class="delete-for-everyone" data-message-id="<%= message.id %>">Delete for Everyone</button>
+                    <% end %>
+                    <button class="delete-for-me" data-message-id="<%= message.id %>">Delete for Me</button>
+                  </div>
                   <div class="card-body">
                     <p class="mb-0">
                       <%= message.content %>
@@ -115,6 +154,13 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
                     style="border-bottom: 1px solid rgba(255,255,255,.3);">
                     <p class="fw-bold mb-0"><%= message.user.name %></p>
                     <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
+                  </div>
+                  <div id="message_<%= message.id %>" class="message <%= message.user == current_user ? 'my-message' : 'other-message' %>">
+                    
+                    <% if message.user == current_user %>
+                      <button class="delete-for-everyone" data-message-id="<%= message.id %>">Delete for Everyone</button>
+                    <% end %>
+                    <button class="delete-for-me" data-message-id="<%= message.id %>">Delete for Me</button>
                   </div>
                   <div class="card-body">
                     <p class="mb-0">
@@ -131,6 +177,9 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
               </ul>
               <%end%>
             <% end %>
+
+            
+
             <div data-mdb-input-init class="form-outline form-white">
               <%= form_with model: @message, url: chat_messages_path(@chat), local: true do |form| %>
                 <%= form.hidden_field :chat_id, value: @chat.id %>
@@ -148,6 +197,13 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
     </div>
 
   </div>
+  <script>
+  $(document).ready(function() {
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+</script>
+
 </section>
 <!-- app/views/chats/show.html.erb -->
 </body>

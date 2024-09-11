@@ -11,7 +11,7 @@ class ChatsController < ApplicationController
     @chats = @user.chats
     #Search for a chat if it exists or create a new instance of chat↓
     @chat = find_or_create_chat
-    @messages = @chat.messages
+    @messages = @chat.messages.includes(:user)
     @message = Message.new
     @message.user = current_user
     #user 1 is the current user, now we need to find the other user

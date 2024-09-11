@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @post
     else
+      puts @comment.errors.full_messages
       render "new"
     end
   end

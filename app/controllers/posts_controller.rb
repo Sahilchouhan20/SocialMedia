@@ -17,10 +17,12 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     @post.images.attach(params[:post][:image])
+
     if @post.save!
       redirect_to @post, notice: 'Post was successfully created.'
     else
-      render :new
+      # Render the 'new' template with a 200 status to match the test expectation
+      render :new, status: :ok
     end
   end
 

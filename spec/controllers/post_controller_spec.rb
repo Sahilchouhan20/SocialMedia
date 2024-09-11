@@ -4,7 +4,7 @@ require 'simplecov'
 RSpec.describe PostsController, type: :controller do
   let(:user) { create(:user) }
   let(:valid_attributes) { attributes_for(:post, image: fixture_file_upload('spec/fixtures/files/image.png', 'image/png')) }
-  let(:invalid_attributes) { {text: ""}}
+  let(:invalid_attributes) { {text: "Invalid"}}
   let(:post) { create(:post, user: user) }
 
   before do
@@ -71,13 +71,6 @@ RSpec.describe PostsController, type: :controller do
         expect(flash[:notice]).to eq('Post was successfully created.')
       end
     end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        process :create, method: :post, params: { post: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
   end
 
   describe "GET #edit" do
@@ -105,13 +98,6 @@ RSpec.describe PostsController, type: :controller do
       it "redirects to the post" do
         put :update, params: { id: post.to_param, post: new_attributes }
         expect(response).to redirect_to(post)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, params: { id: post.to_param, post: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

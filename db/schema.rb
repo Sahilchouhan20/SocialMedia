@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_10_083803) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_095428) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -96,6 +96,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_083803) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "messages_users_deleted_for", id: false, force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["message_id", "user_id"], name: "index_messages_users_deleted_for_on_message_id_and_user_id", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "text"
@@ -134,6 +140,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_083803) do
   add_foreign_key "comments", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
+  add_foreign_key "messages_users_deleted_for", "messages"
+  add_foreign_key "messages_users_deleted_for", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "stories", "users"
 end
