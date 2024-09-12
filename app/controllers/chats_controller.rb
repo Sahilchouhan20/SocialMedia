@@ -9,15 +9,20 @@ class ChatsController < ApplicationController
   def show
     @user = current_user
     @chats = @user.chats
-    #Search for a chat if it exists or create a new instance of chat↓
     @chat = find_or_create_chat
-    @messages = @chat.messages.includes(:user)
+    @messages = filter_messages(@chat.messages.includes(:user))
     @message = Message.new
     @message.user = current_user
-    #user 1 is the current user, now we need to find the other user
-    @other_user = User.find(@other_user_id) if @other_user_id #the if here makes sure the app doesnt break if the other user doesnt exist
+    @other_user = User.find(@other_user_id) if @other_user_id
   end
 private
+
+  def filter_messages(messages)
+    messages.reject do |message|
+      message.deleted_for_everyone || message.deleted_for&.include?(current_user.id)
+    end
+  end
+
   def find_or_create_chat
     # Get the current user's ID
     @user_id = current_user.id.to_i

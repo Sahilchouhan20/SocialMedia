@@ -73,13 +73,9 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
 <body class="gradient-custom">
 <section class="gradient-custom">
   <div class="container py-5">
-
     <div class="row">
-      
       <div class="col-10 col-md-6 col-lg-5 col-xl-5 mb-4 mb-md-0 position-fixed overflow-auto" style="width:455px;">
-    
         <h5 class="font-weight-bold mb-3 text-center text-white">Member</h5>
-    
         <% User.all.each do |other_user|%>
           <% if other_user != current_user %>
           <div class="card mask-custom">
@@ -88,7 +84,7 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
                 <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
                 <a href="#!" class="d-flex justify-content-between link-light">
                   <div class="d-flex flex-row">
-                      <%if other_user.avatar.attached? %>
+                    <%if other_user.avatar.attached? %>
                       <%= image_tag main_app.rails_blob_url(other_user.avatar.attachment), class:"post-profile-pic"%>
                     <%else%>
                       <img src="" alt="Profile" class="post-profile-pic">
@@ -115,71 +111,53 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
 
       <div class="col-2 col-md-6 col-lg-7 col-xl-7 " style="margin-left:579px;">
         <div id="chat-box">
-          <% @messages.each do |message| %>
+          <% visible_messages(@messages, current_user).each do |message| %>
             <ul class="list-unstyled text-white">
               <% if message.user != current_user%>
-              <li class="d-flex mb-4">
-                <%if message.user.avatar.attached? %>
-                      <%= image_tag main_app.rails_blob_url(message.user.avatar.attachment), class:"post-profile-pic"%>
-                    <%else%>
-                      <img src="" alt="Profile" class="post-profile-pic">
-                    <%end%>
-                
-                <div class="card mask-custom">
-                  <div class="card-header d-flex justify-content-between p-3"
-                    style="border-bottom: 1px solid rgba(255,255,255,.3);">
-                    <p class="fw-bold mb-0"><%= message.user.name %></p>
-                    <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
+                <li class="d-flex mb-4">
+                  <%if message.user.avatar.attached? %>
+                    <%= image_tag main_app.rails_blob_url(message.user.avatar.attachment), class:"post-profile-pic"%>
+                  <%else%>
+                    <img src="" alt="Profile" class="post-profile-pic">
+                  <%end%>
+                  <div class="card mask-custom">
+                    <div class="card-header d-flex justify-content-between p-3"
+                      style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                      <p class="fw-bold mb-0"><%= message.user.name %></p>
+                      <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
+                    </div>
+                      <button class="delete-for-me" data-message-id="<%= message.id %>">Delete for Me</button>
+                    </div>
+                    <div class="card-body">
+                      <p class="mb-0">
+                        <%= message.content %>
+                      </p>
+                    </div>
                   </div>
-                  <div id="message_<%= message.id %>" class="message <%= message.user == current_user ? 'my-message' : 'other-message' %>">
-                    
-                    <% if message.user == current_user %>
-                    <%=button_to "Delete for everyone", chat_message_path(message), method: :delete%>
-
-                      <button class="delete-for-everyone" data-message-id="<%= message.id %>">Delete for Everyone</button>
-                    <% end %>
-                    <button class="delete-for-me" data-message-id="<%= message.id %>">Delete for Me</button>
-                  </div>
-                  <div class="card-body">
-                    <p class="mb-0">
-                      <%= message.content %>
-                    </p>
-                  </div>
-                </div>
-              </li>
+                </li>
               <%else %>
-              <li class="d-flex justify-content-between mb-4">
-                <div class="card mask-custom w-32" style="margin-left:450px;">
-                  <div class="card-header d-flex justify-content-between p-3"
-                    style="border-bottom: 1px solid rgba(255,255,255,.3);">
-                    <p class="fw-bold mb-0"><%= message.user.name %></p>
-                    <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
+                <li class="d-flex justify-content-between mb-4">
+                  <div class="card mask-custom w-32" style="margin-left:450px;">
+                    <div class="card-header d-flex justify-content-between p-3"
+                      style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                      <p class="fw-bold mb-0"><%= message.user.name %></p>
+                      <p class="text-light small mb-0"><i class="far fa-clock"></i> <%= message.updated_at.strftime("%I:%M ago")%></p>
+                    </div>
+                    <div class="card-body">
+                      <p class="mb-0">
+                        <%= message.content %>
+                      </p>
+                    </div>
                   </div>
-                  <div id="message_<%= message.id %>" class="message <%= message.user == current_user ? 'my-message' : 'other-message' %>">
-                    
-                    <% if message.user == current_user %>
-                      <button class="delete-for-everyone" data-message-id="<%= message.id %>">Delete for Everyone</button>
-                    <% end %>
-                    <button class="delete-for-me" data-message-id="<%= message.id %>">Delete for Me</button>
-                  </div>
-                  <div class="card-body">
-                    <p class="mb-0">
-                      <%= message.content %>
-                    </p>
-                  </div>
-                </div>
-                <%if message.user.avatar.attached? %>
-                      <%= image_tag main_app.rails_blob_url(message.user.avatar.attachment), class:"post-profile-pic"%>
-                    <%else%>
-                      <img src="" alt="Profile" class="post-profile-pic">
-                    <%end%>
-              </li>
-              </ul>
+                  <%if message.user.avatar.attached? %>
+                    <%= image_tag main_app.rails_blob_url(message.user.avatar.attachment), class:"post-profile-pic"%>
+                  <%else%>
+                    <img src="" alt="Profile" class="post-profile-pic">
+                  <%end%>
+                </li>
               <%end%>
-            <% end %>
-
-            
-
+            </ul>
+          <% end %>
             <div data-mdb-input-init class="form-outline form-white">
               <%= form_with model: @message, url: chat_messages_path(@chat), local: true do |form| %>
                 <%= form.hidden_field :chat_id, value: @chat.id %>
@@ -193,17 +171,8 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
-  <script>
-  $(document).ready(function() {
-    const chatMessages = document.getElementById('chat-messages');
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  });
-</script>
-
 </section>
 <!-- app/views/chats/show.html.erb -->
 </body>

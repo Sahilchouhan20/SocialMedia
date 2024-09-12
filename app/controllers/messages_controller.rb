@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:destroy, :delete_for_me]
-
+  before_action :set_message
   def create
     @chat = Chat.find(params[:chat_id])
     if @chat
@@ -18,23 +17,18 @@ class MessagesController < ApplicationController
     end
   end
 
-  def destroy
-    if @message.user == current_user
-      @message.destroy
+  def delete_for_everyone
+    if @message && @message.user == current_user
+      @message.update(deleted_for_everyone: true)
       ChatChannel.broadcast_to(
         @message.chat,
         action: 'delete_message',
         message_id: @message.id
       )
-      render json: { success: true }, status: :ok
+      render json: { success: true }
     else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+      render json: { success: false, error: 'Unauthorized or message not found' }, status: :unauthorized
     end
-  end
-
-  def delete_for_me
-    current_user.deleted_messages << @message unless current_user.deleted_messages.include?(@message)
-    render json: { success: true }, status: :ok
   end
 
   private
@@ -44,6 +38,6 @@ class MessagesController < ApplicationController
   end
 
   def set_message
-    @message = Message.find(params[:id])
+    @message = Message.find_by(id: params[:id])
   end
 end

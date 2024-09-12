@@ -56,29 +56,33 @@ RSpec.describe CommentsController, type: :controller do
   describe 'PATCH #update' do
     context 'with valid attributes' do
       it 'updates the comment and redirects to the post' do
-        patch :update, params: {id: comment.id, comment: attributes_for(:comment, discription: 'Updated description' ) }
+        patch :update, params: { post_id: post.id, id: comment.id, comment: { discription: 'Updated description' } }
         comment.reload
-        expect(comment.description).to eq('Updated description')
+        expect(comment.discription).to eq('Updated description')
         expect(response).to redirect_to(post_path(post))
       end
     end
 
     context 'with invalid attributes' do
       it 'does not update the comment and re-renders the edit template' do
-        patch :update, params: { post_id: post.id, id: comment.id, comment: { description: '' } }
-        expect(comment.reload.description).to eq(comment.description)
-        expect(response).to have_http_status(:unprocessable_entity)
+        patch :update, params: { post_id: post.id, id: comment.id, comment: { discription: '' } }
+        comment.reload
+        expect(comment.discription).to_not eq('')
+        expect(response).to render_template(:edit)
       end
     end
   end
 
   describe 'DELETE #destroy' do
+    let!(:post) { create(:post) }
+    let!(:comment) { create(:comment, post: post) }
+
     it 'deletes the comment and redirects to the post' do
-      comment # Ensure the comment is created
       expect {
         delete :destroy, params: { post_id: post.id, id: comment.id }
-      }.to change(Comment, :count).by(-1)
-      expect(response).to redirect_to(post_path(post))
+      }.to change(Comment, :count).by(-1)  # Expect the count to decrease by 1
+
+      expect(response).to redirect_to(post_path(post))  # Expect a redirect to the post
     end
   end
 end
