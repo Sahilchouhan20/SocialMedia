@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  include PostHelper
   before_action :authenticate_user!
   before_action :find_post
 
@@ -8,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = current_user.posts.find_by(id: params[:id])
+    @post
   end
 
   def new
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post
     else
-      render :edit, status: :"profile can't be edit"
+      render :edit, status: :unprocessable_entity
     end
   end
 

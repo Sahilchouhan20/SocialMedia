@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
-
   def edit
     @user
   end
@@ -15,13 +14,13 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user
     else
-      render :edit, status: :"profile can't be edit"
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @user.destroy
-    redirect_to root_path,status: :"Your id is not destory"
+    redirect_to root_path,status: :see_other
   end
 
   private
