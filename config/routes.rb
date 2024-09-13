@@ -37,6 +37,12 @@ Rails.application.routes.draw do
     resources :messages, param: :chat_id
   end
 
+  resources :messages, only: [:destroy] do
+    member do
+      delete 'delete_for_me'
+    end
+  end
+
   get 'start_chat', to: 'chats#start_chat'
 
 end

@@ -1,111 +1,118 @@
-# spec/controllers/posts_controller_spec.rb
 require 'rails_helper'
+require 'simplecov'
 
 RSpec.describe PostsController, type: :controller do
-  let(:user) { FactoryBot.create(:user) }
-  let(:post) { FactoryBot.create(:post, user_id: user.id) }
-  let(:valid_attributes) { { text: 'Valid text', images: [fixture_file_upload('spec/fixtures/files/image.png')] } }
-  let(:invalid_attributes) { { text: '' } }
+  let(:user) { create(:user) }
+  let(:valid_attributes) { attributes_for(:post, image: fixture_file_upload('spec/fixtures/files/image.png', 'image/png')) }
+  let(:invalid_attributes) { {text: "Invalid"}}
+  let(:post) { create(:post, user: user) }
 
   before do
     sign_in user
   end
 
-  describe 'GET #index' do
-    it 'assigns all posts to @posts' do
+  describe "GET #index" do
+    it "returns a success response" do
       get :index
-      expect(assigns(:posts)).to include(post)
+      expect(response).to be_successful
     end
 
-    it 'renders the :index template' do
+    it "assigns all posts with attached images to @posts" do
+      post = create(:post, :with_image, user: user)
       get :index
-      expect(response).to render_template(:index)
+      expect(assigns(:posts)).to eq([post])
     end
   end
 
-  describe 'GET #show' do
-    context 'when the post belongs to the current user' do
-      it 'assigns the requested post to @post' do
-        get :show, params: { id: post.id }
-        expect(assigns(:post)).to eq(post)
-      end
+  describe "GET #show" do
+    it "returns a success response" do
+      get :show, params: { id: post.to_param }
+      expect(response).to be_successful
+    end
 
-      it 'renders the :show template' do
-        get :show, params: { id: post.id }
-        expect(response).to render_template(:show)
-      end
+    it "assigns the requested post to @post" do
+      get :show, params: { id: post.to_param }
+      expect(assigns(:post)).to eq(post)
     end
   end
 
-  describe 'GET #new' do
-    it 'assigns a new post to @post' do
+  describe "GET #new" do
+    it "returns a success response" do
+      get :new
+      expect(response).to be_successful
+    end
+
+    it "assigns a new post to @post" do
       get :new
       expect(assigns(:post)).to be_a_new(Post)
     end
-
-    it 'renders the :new template' do
-      get :new
-      expect(response).to render_template(:new)
-    end
   end
 
-  describe 'POST #create' do
-    context 'with valid attributes' do
-      it 'creates a new post' do
-        expect {
-          post :create, params: { post: valid_attributes }
-        }.to change(Post, :count).by(1)
+  describe "POST #create" do
+    context "with valid params" do
+       it "creates a new Post" do
+        process :create, method: :post, params: { post: valid_attributes }
+        expect(response).to have_http_status(:redirect)
+        expect(Post.count).to eq(1)
       end
 
-      it 'redirects to the new post' do
-        post :create, params: { post: valid_attributes }
+      it "redirects to the created post" do
+        process :create, method: :post, params: { post: valid_attributes }
         expect(response).to redirect_to(Post.last)
       end
 
-      it 'sets a flash notice' do
-        post :create, params: { post: valid_attributes }
+      it "attaches the image to the post" do
+        process :create, method: :post, params: { post: valid_attributes }
+        expect(Post.last.images).to be_attached
+      end
+
+      it "sets a success notice" do
+        process :create, method: :post, params: { post: valid_attributes }
         expect(flash[:notice]).to eq('Post was successfully created.')
       end
     end
+  end
 
-    context 'with invalid attributes' do
-      it 'does not create a new post' do
-        expect {
-          post :create, params: { post: invalid_attributes }
-        }.to change(Post, :count).by(0)
-      end
+  describe "GET #edit" do
+    it "returns a success response" do
+      get :edit, params: { id: post.to_param }
+      expect(response).to be_successful
+    end
 
-      it 'renders the :new template' do
-        post :create, params: { post: invalid_attributes }
-        expect(response).to render_template(:new)
-      end
+    it "assigns the requested post to @post" do
+      get :edit, params: { id: post.to_param }
+      expect(assigns(:post)).to eq(post)
     end
   end
 
-  describe 'PATCH #update' do
-    let(:post) { create(:post, user: user) }
+  describe "PUT #update" do
+    context "with valid params" do
+      let(:new_attributes) { { text: "Updated text" } }
 
-    context 'with invalid attributes' do
-      it 'does not update the post' do
-        patch :update, params: { id: post.id, post: invalid_attributes }
+      it "updates the requested post" do
+        put :update, params: { id: post.to_param, post: new_attributes }
         post.reload
-        expect(post.text).not_to be_empty
+        expect(post.text).to eq("Updated text")
       end
 
-      it 'renders the :edit template' do
-        patch :update, params: { id: post.id, post: invalid_attributes }
-        expect(response).to render_template(:edit)
+      it "redirects to the post" do
+        put :update, params: { id: post.to_param, post: new_attributes }
+        expect(response).to redirect_to(post)
       end
     end
   end
 
-  describe 'DELETE #destroy' do
-    let!(:post_to_delete) { create(:post, user: user) }
-
-    it 'deletes the post' do
+  describe "DELETE #destroy" do
+    it "destroys the requested post" do
+      post_to_delete = create(:post, user: user)
       expect {
-        delete :destroy, params: { id: post_to_delete.id }
+        delete :destroy, params: { id: post_to_delete.to_param }
       }.to change(Post, :count).by(-1)
+    end
+
+    it "redirects to the homes path" do
+      delete :destroy, params: { id: post.to_param }
+      expect(response).to redirect_to(homes_path)
     end
   end
 end

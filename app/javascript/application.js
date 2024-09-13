@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "@rails/actioncableimport"
+import "../chat"
+import $ from 'jquery'
+global.$ = global.jQuery = $;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_01_141511) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_11_095428) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,7 +59,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_01_141511) do
     t.text "discription"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "followability_relationships", force: :cascade do |t|
@@ -92,6 +94,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_01_141511) do
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "messages_users_deleted_for", id: false, force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["message_id", "user_id"], name: "index_messages_users_deleted_for_on_message_id_and_user_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
@@ -129,8 +137,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_01_141511) do
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
+  add_foreign_key "messages_users_deleted_for", "messages"
+  add_foreign_key "messages_users_deleted_for", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "stories", "users"
 end
