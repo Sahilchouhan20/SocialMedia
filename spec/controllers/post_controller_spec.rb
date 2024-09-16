@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'simplecov'
 
 RSpec.describe PostsController, type: :controller do
   let(:user) { create(:user) }

@@ -2,9 +2,18 @@ class Message < ApplicationRecord
   belongs_to :user
   belongs_to :chat
 
-  has_and_belongs_to_many :users_deleted_for, class_name: 'User', join_table: 'messages_users_deleted_for'
+  serialize :deleted_for, Array, coder: JSON
 
-  def visible_for?(user)
-    users_deleted_for.exclude?(user)
+  scope :visible_to, ->(user) {
+    where("deleted_for IS NULL OR deleted_for NOT LIKE ?", "%#{user.id}%")
+  }
+
+  def deleted_for?(user)
+    deleted_for.include?(user.id)
+  end
+
+  def mark_deleted_for(user)
+    self.deleted_for = (deleted_for || []) + [user.id]
+    save
   end
 end

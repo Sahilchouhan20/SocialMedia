@@ -26,10 +26,10 @@ class CommentsController < ApplicationController
 
   def update
 
-    if @comment.update(comment_params, user_id:current_user.id)
+    if @comment.update(comment_params)
       redirect_to post_path(@post)
     else
-      redirect_to 'edit',status: :"comment can't be update"
+      render :edit
     end
   end
 

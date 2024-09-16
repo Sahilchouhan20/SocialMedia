@@ -98,3 +98,5 @@ end
 gem 'jquery-rails'
 
 gem "simplecov", '0.17.0'
+
+gem 'active_model_serializers'

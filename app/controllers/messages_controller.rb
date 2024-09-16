@@ -1,13 +1,12 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:destroy, :delete_for_me]
+  include MessagesHelper
+  before_action :set_chat, only: [:create]
+  before_action :set_message, only: [:delete_for_me]
 
   def create
-    @chat = Chat.find(params[:chat_id])
-    if @chat
-      @message = @chat.messages.new(message_params)
-      @message.user = current_user
-      @message.save
-      # Broadcast the message to all subscribers
+    @message = @chat.messages.new(message_params)
+    @message.user = current_user
+    if @message.save
       ChatChannel.broadcast_to(
         @chat,
         message: render_to_string(partial: "messages/message"),
@@ -15,35 +14,39 @@ class MessagesController < ApplicationController
         sender_id: @message.user.id
       )
       head :ok
-    end
-  end
-
-  def destroy
-    if @message.user == current_user
-      @message.destroy
-      ChatChannel.broadcast_to(
-        @message.chat,
-        action: 'delete_message',
-        message_id: @message.id
-      )
-      render json: { success: true }, status: :ok
     else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+      render json: { errors: @message.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def delete_for_me
-    current_user.deleted_messages << @message unless current_user.deleted_messages.include?(@message)
-    render json: { success: true }, status: :ok
+    if @message
+      @message.mark_deleted_for(current_user)
+      render json: { success: true }
+    else
+      render json: { success: false, error: 'Message not found' }, status: :not_found
+    end
   end
 
   private
 
-  def message_params
-    params.require(:message).permit(:content)
+  def set_chat
+    @chat = Chat.find_by(id: params[:chat_id])
+    unless @chat
+      Rails.logger.error "Chat not found with id: #{params[:chat_id]}"
+      render json: { error: 'Chat not found' }, status: :not_found
+    end
   end
 
   def set_message
-    @message = Message.find(params[:id])
+    @message = Message.find_by(id: params[:chat_id])
+    unless @message
+      Rails.logger.error "Message not found with id: #{params[:id]} in chat: #{@chat.id}"
+      render json: { error: 'Message not found' }, status: :not_found
+    end
+  end
+
+  def message_params
+    params.require(:message).permit(:content)
   end
 end
